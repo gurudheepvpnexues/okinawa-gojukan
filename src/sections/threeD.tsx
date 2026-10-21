@@ -3,333 +3,11 @@
  *
  * Everything here is drawn with gradients and real CSS 3D transforms so the
  * hero can render the full red / black / white palette without shipping a
- * single bitmap. The fighter is a sculpted, high-contrast silhouette in
- * white gi with red trim and a black belt, lit from the upper left.
+ * single bitmap. The centrepiece is a real photograph of the chief instructor,
+ * graded down to the same palette; the props around him are pure vectors.
  */
 
 import { memo, type CSSProperties } from "react";
-
-/* ------------------------------------------------------------------ FIGHTER */
-
-export const Fighter3D = memo(() => (
-	<svg
-		className="h3d__svg"
-		viewBox="0 0 620 820"
-		xmlns="http://www.w3.org/2000/svg"
-		role="img"
-		aria-label="A karate fighter in a white gi with red trim and a black belt, holding a punching stance"
-	>
-		<defs>
-			<linearGradient
-				id="gTorso"
-				gradientUnits="userSpaceOnUse"
-				x1="236"
-				y1="192"
-				x2="404"
-				y2="330"
-			>
-				<stop offset="0" stopColor="#ffffff" />
-				<stop offset=".32" stopColor="#f0f0f0" />
-				<stop offset=".68" stopColor="#c4c4c4" />
-				<stop offset="1" stopColor="#7a7a7a" />
-			</linearGradient>
-
-			<linearGradient
-				id="gLegF"
-				gradientUnits="userSpaceOnUse"
-				x1="150"
-				y1="520"
-				x2="304"
-				y2="650"
-			>
-				<stop offset="0" stopColor="#ffffff" />
-				<stop offset=".42" stopColor="#e9e9e9" />
-				<stop offset="1" stopColor="#828282" />
-			</linearGradient>
-
-			<linearGradient
-				id="gLegB"
-				gradientUnits="userSpaceOnUse"
-				x1="318"
-				y1="450"
-				x2="480"
-				y2="650"
-			>
-				<stop offset="0" stopColor="#dcdcdc" />
-				<stop offset=".45" stopColor="#b4b4b4" />
-				<stop offset="1" stopColor="#666666" />
-			</linearGradient>
-
-			<linearGradient
-				id="gArmF"
-				gradientUnits="userSpaceOnUse"
-				x1="40"
-				y1="230"
-				x2="272"
-				y2="300"
-			>
-				<stop offset="0" stopColor="#ffffff" />
-				<stop offset=".45" stopColor="#ededed" />
-				<stop offset="1" stopColor="#8c8c8c" />
-			</linearGradient>
-
-			<linearGradient
-				id="gArmB"
-				gradientUnits="userSpaceOnUse"
-				x1="350"
-				y1="220"
-				x2="470"
-				y2="420"
-			>
-				<stop offset="0" stopColor="#d6d6d6" />
-				<stop offset=".5" stopColor="#adadad" />
-				<stop offset="1" stopColor="#606060" />
-			</linearGradient>
-
-			<linearGradient
-				id="gHead"
-				gradientUnits="userSpaceOnUse"
-				x1="256"
-				y1="52"
-				x2="368"
-				y2="196"
-			>
-				<stop offset="0" stopColor="#ffffff" />
-				<stop offset=".48" stopColor="#dcdcdc" />
-				<stop offset="1" stopColor="#757575" />
-			</linearGradient>
-
-			<linearGradient id="gRed" x1="0" y1="0" x2="1" y2="1">
-				<stop offset="0" stopColor="#ff3c44" />
-				<stop offset=".45" stopColor="#E30613" />
-				<stop offset="1" stopColor="#8c0310" />
-			</linearGradient>
-
-			<linearGradient id="gBelt" x1="0" y1="0" x2="0" y2="1">
-				<stop offset="0" stopColor="#3d3d3d" />
-				<stop offset=".38" stopColor="#161616" />
-				<stop offset="1" stopColor="#000000" />
-			</linearGradient>
-
-			<radialGradient id="gFloor" cx=".5" cy=".5" r=".5">
-				<stop offset="0" stopColor="#000000" stopOpacity=".72" />
-				<stop offset=".6" stopColor="#000000" stopOpacity=".34" />
-				<stop offset="1" stopColor="#000000" stopOpacity="0" />
-			</radialGradient>
-		</defs>
-
-		{/* floor shadow */}
-		<ellipse cx="300" cy="782" rx="230" ry="40" fill="url(#gFloor)" />
-		<ellipse cx="300" cy="780" rx="150" ry="16" fill="#E30613" opacity=".2" />
-
-		{/* ------------------------------------------------- rear leg */}
-		<path
-			d="M330 452 L418 584 L462 726"
-			stroke="url(#gLegB)"
-			strokeWidth="80"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			fill="none"
-		/>
-		<path
-			d="M462 722 C486 724 508 738 516 752 C522 763 511 774 494 774 L456 772 C441 770 436 758 441 744 C446 732 452 722 462 722 Z"
-			fill="url(#gLegB)"
-		/>
-
-		{/* ------------------------------------------------- rear arm */}
-		<path
-			d="M372 234 L446 330 L400 422"
-			stroke="url(#gArmB)"
-			strokeWidth="54"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			fill="none"
-		/>
-		<path
-			d="M400 404 C418 406 428 420 424 434 C420 448 404 456 392 450 C380 444 376 430 382 418 C386 409 392 404 400 404 Z"
-			fill="url(#gArmB)"
-		/>
-		{/* red cuff on the chambered arm */}
-		<ellipse
-			cx="406"
-			cy="398"
-			rx="9"
-			ry="19"
-			transform="rotate(14 406 398)"
-			fill="url(#gRed)"
-		/>
-
-		{/* ------------------------------------------------- front leg */}
-		<path
-			d="M296 446 L230 578 L178 734"
-			stroke="url(#gLegF)"
-			strokeWidth="88"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			fill="none"
-		/>
-		<path
-			d="M178 730 C152 736 126 750 114 762 C105 771 114 782 130 782 L184 780 C197 780 203 767 196 753 C190 741 186 730 178 730 Z"
-			fill="url(#gLegF)"
-		/>
-
-		{/* ------------------------------------------------- torso (gi) */}
-		<path
-			d="M248 232 C266 202 288 190 312 190 C338 190 362 202 378 232 C394 276 392 362 382 438 L242 438 C232 362 232 276 248 232 Z"
-			fill="url(#gTorso)"
-		/>
-		{/* gi folds */}
-		<path
-			d="M262 330 C276 372 280 404 278 438 L252 438 C244 400 246 360 258 328 Z"
-			fill="#ffffff"
-			opacity=".5"
-		/>
-		<path
-			d="M366 300 C374 346 374 400 370 438 L348 438 C352 396 350 342 342 302 Z"
-			fill="#000000"
-			opacity=".1"
-		/>
-
-		{/* black undershirt visible in the lapel V */}
-		<path d="M266 184 L312 338 L358 180 Z" fill="#101010" />
-		{/* red piping along both lapel edges */}
-		<path d="M266 184 L278 180 L324 336 L312 340 Z" fill="url(#gRed)" />
-		<path d="M300 340 L312 336 L358 180 L346 182 Z" fill="url(#gRed)" />
-		{/* white lapel band on the near side */}
-		<path
-			d="M250 182 L266 184 L312 340 L296 344 Z"
-			fill="url(#gTorso)"
-			opacity=".95"
-		/>
-
-		{/* ------------------------------------------------- belt */}
-		<path
-			d="M236 424 C284 440 344 440 390 424 L388 464 C342 480 282 480 238 464 Z"
-			fill="url(#gBelt)"
-		/>
-		<path
-			d="M236 424 C284 440 344 440 390 424 L389 432 C344 448 284 448 237 432 Z"
-			fill="#ffffff"
-			opacity=".14"
-		/>
-		{/* knot + hanging tails */}
-		<path
-			d="M298 428 L334 424 L340 470 L304 476 Z"
-			fill="url(#gBelt)"
-		/>
-		<path
-			d="M306 470 C300 516 296 566 300 612 L320 614 C322 566 326 514 330 470 Z"
-			fill="url(#gBelt)"
-		/>
-		<path
-			d="M334 468 C348 512 358 556 352 604 L332 604 C334 556 330 508 322 470 Z"
-			fill="url(#gBelt)"
-		/>
-		<path d="M300 606 L320 608 L320 620 L300 618 Z" fill="url(#gRed)" />
-		<path d="M332 598 L353 597 L353 609 L332 610 Z" fill="url(#gRed)" />
-
-		{/* ------------------------------------------------- neck + head */}
-		<path d="M288 164 L328 164 L334 206 L282 206 Z" fill="url(#gHead)" />
-		<path
-			d="M268 92 C276 58 302 42 328 46 C356 50 372 72 371 102 C370 120 364 136 354 148 C346 158 342 170 340 180 C338 192 330 198 318 198 L302 198 C288 196 278 186 274 172 C270 160 264 150 262 136 C260 122 262 104 268 92 Z"
-			fill="url(#gHead)"
-		/>
-		{/* hair */}
-		<path
-			d="M256 106 C252 72 276 40 310 38 C346 36 374 64 376 100 C362 90 342 84 320 84 C294 84 272 92 256 106 Z"
-			fill="#0A0A0A"
-		/>
-		<path
-			d="M368 92 C378 100 378 122 372 140 L358 132 C362 116 364 102 362 94 Z"
-			fill="#0A0A0A"
-		/>
-		{/* ear */}
-		<ellipse cx="350" cy="138" rx="10" ry="14" fill="#b9b9b9" />
-		<ellipse cx="350" cy="138" rx="5" ry="8" fill="#8a8a8a" />
-		{/* brow, eye, mouth */}
-		<path
-			d="M270 118 L302 110"
-			stroke="#1b1b1b"
-			strokeWidth="6"
-			strokeLinecap="round"
-		/>
-		<path
-			d="M274 131 L300 124"
-			stroke="#0A0A0A"
-			strokeWidth="5"
-			strokeLinecap="round"
-		/>
-		<path
-			d="M284 162 L306 159"
-			stroke="#2a2a2a"
-			strokeWidth="4"
-			strokeLinecap="round"
-		/>
-		{/* jaw shadow */}
-		<path
-			d="M330 150 C338 162 340 176 336 188 C330 196 318 200 306 198 C320 194 328 176 330 150 Z"
-			fill="#000000"
-			opacity=".12"
-		/>
-
-		{/* ------------------------------------------------- punching arm */}
-		<path
-			d="M250 224 L142 284 L70 268"
-			stroke="url(#gArmF)"
-			strokeWidth="56"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			fill="none"
-		/>
-		{/* red cuff */}
-		<ellipse
-			cx="94"
-			cy="274"
-			rx="9"
-			ry="20"
-			transform="rotate(-12 94 274)"
-			fill="url(#gRed)"
-		/>
-		{/* forearm + fist */}
-		<path
-			d="M112 276 L66 264"
-			stroke="url(#gArmF)"
-			strokeWidth="44"
-			strokeLinecap="round"
-			fill="none"
-		/>
-		<path
-			d="M62 236 C38 234 20 252 22 272 C24 292 44 306 66 302 C86 298 96 280 90 262 C86 246 76 236 62 236 Z"
-			fill="url(#gArmF)"
-		/>
-		<path
-			d="M30 254 C40 250 52 250 60 254"
-			stroke="#000000"
-			strokeOpacity=".18"
-			strokeWidth="4"
-			strokeLinecap="round"
-			fill="none"
-		/>
-		<path
-			d="M28 270 C40 266 54 266 62 270"
-			stroke="#000000"
-			strokeOpacity=".14"
-			strokeWidth="4"
-			strokeLinecap="round"
-			fill="none"
-		/>
-		<path
-			d="M30 286 C42 282 54 283 62 287"
-			stroke="#000000"
-			strokeOpacity=".1"
-			strokeWidth="4"
-			strokeLinecap="round"
-			fill="none"
-		/>
-	</svg>
-));
-
-Fighter3D.displayName = "Fighter3D";
 
 /* -------------------------------------------------------------------- CUBE */
 
@@ -505,6 +183,44 @@ export const FocusMitt3D = memo(() => (
 ));
 
 FocusMitt3D.displayName = "FocusMitt3D";
+
+/* ----------------------------------------------------------------- MASTER */
+
+/**
+ * The chief instructor of the dojo, holding a championship medal.
+ * Shipped as a real photograph and pushed into the red / black / white
+ * palette with a duotone grade so it sits inside the hero stage.
+ */
+export const MasterFigure = memo(
+	({ className = "" }: { className?: string }) => (
+		<figure className={`h3d__master ${className}`}>
+			<div className="h3d__master-frame">
+				<picture>
+					<source srcSet="assets/img/banner/master.webp" type="image/webp" />
+					<img
+						className="h3d__master-img"
+						src="assets/img/banner/master.png"
+						alt="The chief instructor of Okinawa Gojukan Karate-Do standing on the mat and holding a championship medal, draped in the Indian tricolour"
+						width={1024}
+						height={1536}
+						loading="eager"
+						decoding="async"
+					/>
+				</picture>
+				<span className="h3d__master-grade" aria-hidden="true" />
+				<span className="h3d__master-vignette" aria-hidden="true" />
+				<span className="h3d__master-sweep" aria-hidden="true" />
+			</div>
+
+			<figcaption className="h3d__master-plate">
+				<span className="h3d__master-plate-kicker">Chief Instructor</span>
+				<span className="h3d__master-plate-name">Ramesh Iyer</span>
+			</figcaption>
+		</figure>
+	)
+);
+
+MasterFigure.displayName = "MasterFigure";
 
 /* --------------------------------------------------------------- PARTICLES */
 

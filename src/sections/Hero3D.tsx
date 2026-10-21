@@ -18,8 +18,8 @@ import {
 import {
 	Belt3D,
 	Cube3D,
-	Fighter3D,
 	FocusMitt3D,
+	MasterFigure,
 	Nunchuck3D,
 	Particle,
 } from "./threeD";
@@ -309,15 +309,18 @@ const Hero3D = () => {
 					>
 						<motion.div
 							className="h3d__fighter-enter"
-							initial={{ opacity: 0, x: 110 }}
-							animate={{ opacity: 1, x: 0 }}
-							transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+							initial={{ opacity: 0, clipPath: "inset(0% 0% 100% 0%)" }}
+							animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
+							transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
 						>
 							<motion.div
 								className="h3d__fighter"
+								initial={{ scale: 1.14 }}
+								animate={{ scale: 1 }}
 								style={{ x: fighterX, y: fighterY }}
+								transition={{ duration: 2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
 							>
-								<Fighter3D />
+								<MasterFigure />
 							</motion.div>
 						</motion.div>
 					</motion.div>
