@@ -1,3 +1,10 @@
+# Okinawa Gojukan Karate-Do
+
+Official website for Okinawa Gojukan Karate-Do, Yelahanka, Bengaluru.
+React + Vite + Framer Motion, deployed on Vercel.
+
+---
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
