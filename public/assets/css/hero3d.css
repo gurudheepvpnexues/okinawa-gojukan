@@ -1,0 +1,796 @@
+/* =========================================================================================
+   OKINAWA GOJUKAN — "HERO 3D" DOJO STAGE
+   Loaded after design.css. A red / black / white only cinematic hero:
+   dojo interior texture, a sculpted karate fighter and a field of real
+   CSS-3D props that float and spin around him.
+   ========================================================================================= */
+
+.h3d {
+	--h3d-red: #e30613;
+	--h3d-red-hot: #ff0a16;
+	--h3d-red-deep: #8f040f;
+	--h3d-black: #0a0a0a;
+	--h3d-panel: #1a1a1a;
+	--h3d-white: #ffffff;
+	--h3d-gray: #a0a0a0;
+	--h3d-gray-dim: #888888;
+	--h3d-glow: rgba(227, 6, 19, 0.3);
+
+	position: relative;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	isolation: isolate;
+	background: linear-gradient(
+		165deg,
+		var(--h3d-black) 0%,
+		#131313 42%,
+		var(--h3d-panel) 100%
+	);
+	color: var(--h3d-white);
+}
+
+/* ------------------------------------------------------------------ TEXTURE */
+
+/* Blurred dojo interior — real photography, pushed to monochrome so the
+   palette stays strictly red / black / white. */
+.h3d__tex {
+	position: absolute;
+	inset: -8%;
+	background: url(../img/programs/1-dojo.jpg) 50% 40% / cover no-repeat;
+	filter: grayscale(1) contrast(1.18) brightness(0.42) blur(10px);
+	transform: scale(1.08);
+	opacity: 0.5;
+	z-index: 0;
+	animation: h3dDrift 26s ease-in-out infinite alternate;
+}
+
+/* Japanese shoji / plank panelling read through the blur. */
+.h3d__panels {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background:
+		repeating-linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0.055) 0 1px,
+			rgba(0, 0, 0, 0) 1px 128px
+		),
+		repeating-linear-gradient(
+			90deg,
+			rgba(0, 0, 0, 0.42) 0 3px,
+			rgba(0, 0, 0, 0) 3px 128px
+		),
+		repeating-linear-gradient(
+			0deg,
+			rgba(255, 255, 255, 0.03) 0 1px,
+			rgba(0, 0, 0, 0) 1px 210px
+		);
+	opacity: 0.75;
+}
+
+/* Heavy dark veil — 0.7 over the texture. */
+.h3d__veil {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	background:
+		linear-gradient(
+			180deg,
+			rgba(10, 10, 10, 0.94) 0%,
+			rgba(10, 10, 10, 0.74) 26%,
+			rgba(16, 16, 16, 0.7) 62%,
+			rgba(10, 10, 10, 0.95) 100%
+		),
+		radial-gradient(
+			120% 90% at 78% 18%,
+			rgba(227, 6, 19, 0.16) 0%,
+			rgba(10, 10, 10, 0) 58%
+		);
+}
+
+/* Fine grain + vignette so the flat panels never look like plastic. */
+.h3d__scan {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	pointer-events: none;
+	background:
+		repeating-linear-gradient(
+			0deg,
+			rgba(255, 255, 255, 0.022) 0 1px,
+			rgba(0, 0, 0, 0) 1px 3px
+		),
+		radial-gradient(
+			120% 100% at 50% 45%,
+			rgba(0, 0, 0, 0) 40%,
+			rgba(0, 0, 0, 0.66) 100%
+		);
+}
+
+/* ------------------------------------------------------------------- LAYOUT */
+
+.h3d__grid {
+	position: relative;
+	z-index: 5;
+	width: 100%;
+	max-width: var(--max);
+	margin: 0 auto;
+	padding: 128px 4% 56px;
+	display: grid;
+	grid-template-columns: 1.1fr 0.9fr;
+	align-items: center;
+	gap: clamp(20px, 3vw, 60px);
+	min-height: 100vh;
+}
+
+.h3d__copy {
+	position: relative;
+	z-index: 6;
+	max-width: 640px;
+}
+
+/* ------------------------------------------------------------------ EYEBROW */
+
+.h3d__eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 10px;
+	font-weight: 800;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.72);
+	margin-bottom: 22px;
+}
+
+.h3d__eyebrow-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--h3d-red);
+	box-shadow: 0 0 0 4px rgba(227, 6, 19, 0.2), 0 0 14px rgba(227, 6, 19, 0.8);
+	animation: h3dPulse 2.4s ease-in-out infinite;
+}
+
+/* -------------------------------------------------------------------- TITLE */
+
+.h3d__title {
+	margin: 0;
+	font-family: "Anton", "Oswald", "Arial Narrow", var(--serif);
+	font-weight: 400;
+	font-size: clamp(38px, 5.4vw, 78px);
+	line-height: 0.95;
+	letter-spacing: -0.01em;
+	text-transform: uppercase;
+	color: var(--h3d-white);
+	display: flex;
+	flex-direction: column;
+	/* clip-path reveal */
+	clip-path: inset(0 0 0 0);
+	-webkit-clip-path: inset(0 0 0 0);
+}
+
+.h3d__title-line {
+	display: flex;
+	flex-wrap: wrap;
+	white-space: nowrap;
+}
+
+.h3d__word {
+	display: inline-block;
+	color: var(--h3d-white);
+	transform-origin: 50% 80%;
+	will-change: transform, opacity;
+}
+
+.h3d__word--red {
+	color: var(--h3d-red);
+	text-shadow: 0 0 26px rgba(227, 6, 19, 0.45);
+}
+
+/* --------------------------------------------------------------------- LEDE */
+
+.h3d__lede {
+	margin: 20px 0 0;
+	max-width: 560px;
+	font-size: 14px;
+	line-height: 1.7;
+	color: #e0e0e0;
+	opacity: 0.9;
+	text-align: left;
+}
+
+/* --------------------------------------------------------------------- CTAS */
+
+.h3d__cta {
+	display: flex;
+	gap: 14px;
+	flex-wrap: wrap;
+	margin-top: 28px;
+}
+
+.h3d__btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: var(--serif);
+	font-size: 12px;
+	font-weight: 800;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+	border-radius: 4px;
+	padding: 16px 28px;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		background 0.3s var(--ease),
+		color 0.3s var(--ease),
+		transform 0.3s var(--ease),
+		box-shadow 0.3s var(--ease),
+		border-color 0.3s var(--ease);
+}
+
+.h3d__btn--primary {
+	background: var(--h3d-red);
+	color: var(--h3d-white);
+	border: 1px solid var(--h3d-red);
+	box-shadow: 0 0 20px rgba(227, 6, 19, 0.4);
+	animation: h3dBtnPulse 3s ease-in-out infinite;
+}
+
+.h3d__btn--primary i {
+	transition: transform 0.3s var(--ease);
+}
+
+.h3d__btn--primary:hover {
+	background: var(--h3d-red-hot);
+	border-color: var(--h3d-red-hot);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(227, 6, 19, 0.5);
+	animation: none;
+}
+
+.h3d__btn--primary:hover i {
+	transform: translateX(6px);
+}
+
+.h3d__btn--ghost {
+	background: transparent;
+	border: 1px solid var(--h3d-white);
+	color: var(--h3d-white);
+	padding: 15px 26px;
+}
+
+.h3d__btn--ghost:hover {
+	background: var(--h3d-white);
+	border-color: var(--h3d-white);
+	color: var(--h3d-black);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* -------------------------------------------------------------------- STATS */
+
+.h3d__facts {
+	display: flex;
+	gap: 80px;
+	max-width: 600px;
+	margin-top: 40px;
+	padding-top: 20px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.h3d__fact b {
+	display: block;
+	font-family: "Anton", "Oswald", var(--serif);
+	font-size: 32px;
+	font-weight: 400;
+	line-height: 1;
+	color: var(--h3d-white);
+	letter-spacing: 0.01em;
+	font-variant-numeric: tabular-nums;
+}
+
+.h3d__fact span {
+	display: block;
+	margin-top: 6px;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--h3d-gray-dim);
+}
+
+/* -------------------------------------------------------------------- STAGE */
+
+.h3d__stage {
+	position: relative;
+	z-index: 5;
+	height: 600px;
+	perspective: 1000px;
+	perspective-origin: 60% 45%;
+}
+
+/* Red halo behind the fighter. */
+.h3d__glow {
+	position: absolute;
+	inset: 4% -6% 2% -6%;
+	background: radial-gradient(
+		52% 52% at 56% 48%,
+		rgba(227, 6, 19, 0.32) 0%,
+		rgba(227, 6, 19, 0.12) 42%,
+		rgba(227, 6, 19, 0) 72%
+	);
+	filter: blur(40px);
+	transform: translateZ(0);
+	animation: h3dGlow 6s ease-in-out infinite;
+}
+
+/* Floating prop layer. */
+.h3d__props {
+	position: absolute;
+	inset: 0;
+	transform-style: preserve-3d;
+	pointer-events: none;
+	z-index: 4;
+}
+
+.h3d__obj {
+	position: absolute;
+	transform-style: preserve-3d;
+	will-change: transform;
+}
+
+.h3d__prop {
+	display: block;
+	width: 100%;
+	height: auto;
+	filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.75));
+}
+
+/* --- 3D cubes ------------------------------------------------------------ */
+
+.h3d__cube {
+	position: absolute;
+	transform-style: preserve-3d;
+	animation: h3dFloat 6s ease-in-out infinite;
+}
+
+.h3d__cube3d {
+	position: absolute;
+	inset: 0;
+	transform-style: preserve-3d;
+	animation: h3dSpin 9s linear infinite;
+}
+
+.h3d__face {
+	position: absolute;
+	inset: 0;
+	background: var(--h3d-red);
+	box-shadow:
+		inset 0 0 24px rgba(0, 0, 0, 0.32),
+		inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.h3d__cube3d--red {
+	--c1: #ff3a41;
+	--c2: #8f040f;
+	--c3: #c20510;
+	--c4: #ff6b70;
+}
+
+.h3d__cube3d--white {
+	--c1: #ffffff;
+	--c2: #949494;
+	--c3: #d4d4d4;
+	--c4: #ffffff;
+}
+
+.h3d__face--f {
+	transform: translateZ(calc(var(--s) / 2));
+	background: var(--c1);
+}
+
+.h3d__face--b {
+	transform: rotateY(180deg) translateZ(calc(var(--s) / 2));
+	background: var(--c2);
+}
+
+.h3d__face--r {
+	transform: rotateY(90deg) translateZ(calc(var(--s) / 2));
+	background: var(--c3);
+}
+
+.h3d__face--l {
+	transform: rotateY(-90deg) translateZ(calc(var(--s) / 2));
+	background: var(--c3);
+}
+
+.h3d__face--t {
+	transform: rotateX(90deg) translateZ(calc(var(--s) / 2));
+	background: var(--c4);
+}
+
+.h3d__face--d {
+	transform: rotateX(-90deg) translateZ(calc(var(--s) / 2));
+	background: var(--c2);
+}
+
+/* --- prop placement ------------------------------------------------------ */
+
+.h3d__obj--a {
+	left: 3%;
+	top: 8%;
+	animation-duration: 7s;
+	animation-delay: -0.4s;
+}
+
+.h3d__obj--b {
+	left: 70%;
+	top: 5%;
+	animation-duration: 6s;
+	animation-delay: -1.6s;
+}
+
+.h3d__obj--c {
+	left: 88%;
+	top: 28%;
+	animation-duration: 5.2s;
+	animation-delay: -2.4s;
+}
+
+.h3d__obj--d {
+	left: 78%;
+	top: 68%;
+	animation-duration: 7.8s;
+	animation-delay: -0.9s;
+}
+
+.h3d__obj--e {
+	left: 10%;
+	top: 50%;
+	animation-duration: 5.6s;
+	animation-delay: -3.2s;
+}
+
+.h3d__obj--f {
+	left: 46%;
+	top: 2%;
+	animation-duration: 6.6s;
+	animation-delay: -2.1s;
+}
+
+.h3d__obj--g {
+	left: -2%;
+	top: 26%;
+	width: 150px;
+	animation: h3dFloat 7.4s ease-in-out infinite;
+	animation-delay: -1.1s;
+}
+
+.h3d__obj--h {
+	left: 58%;
+	top: 84%;
+	width: 170px;
+	animation: h3dFloat 8.2s ease-in-out infinite;
+	animation-delay: -3.6s;
+}
+
+.h3d__obj--i {
+	left: 66%;
+	top: 20%;
+	width: 140px;
+	animation: h3dFloat 6.4s ease-in-out infinite;
+	animation-delay: -0.7s;
+}
+
+.h3d__obj--j {
+	left: 6%;
+	top: 78%;
+	width: 120px;
+	animation: h3dFloat 7.1s ease-in-out infinite;
+	animation-delay: -2.7s;
+}
+
+.h3d__obj--k {
+	left: 20%;
+	top: 66%;
+	width: 96px;
+	animation: h3dFloat 5.9s ease-in-out infinite;
+	animation-delay: -1.4s;
+}
+
+.h3d__obj--l {
+	left: 84%;
+	top: 46%;
+	width: 78px;
+	animation: h3dFloat 6.9s ease-in-out infinite;
+	animation-delay: -3.9s;
+}
+
+/* --- the fighter --------------------------------------------------------- */
+
+.h3d__fighter-scroll {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	z-index: 3;
+	pointer-events: none;
+}
+
+.h3d__fighter-enter {
+	height: 100%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding-right: 4%;
+}
+
+.h3d__fighter {
+	position: relative;
+	height: 92%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	filter:
+		drop-shadow(-4px -6px 12px rgba(227, 6, 19, 0.42))
+		drop-shadow(0 26px 46px rgba(0, 0, 0, 0.85));
+}
+
+.h3d__svg {
+	display: block;
+	height: 100%;
+	width: auto;
+	animation: h3dBob 5s ease-in-out infinite;
+	transform-origin: 50% 100%;
+}
+
+/* --- dust ---------------------------------------------------------------- */
+
+.h3d__dust {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	pointer-events: none;
+}
+
+.h3d__particle {
+	position: absolute;
+	border-radius: 50%;
+	animation-name: h3dParticle;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.h3d__particle--red {
+	background: var(--h3d-red);
+	box-shadow: 0 0 10px rgba(227, 6, 19, 0.9);
+}
+
+.h3d__particle--white {
+	background: var(--h3d-white);
+	box-shadow: 0 0 8px rgba(255, 255, 255, 0.55);
+}
+
+/* --------------------------------------------------------------- KEYFRAMES */
+
+@keyframes h3dDrift {
+	from {
+		transform: scale(1.08) translate3d(0, 0, 0);
+	}
+	to {
+		transform: scale(1.16) translate3d(-1.4%, -1.2%, 0);
+	}
+}
+
+@keyframes h3dBob {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-16px);
+	}
+}
+
+@keyframes h3dGlow {
+	0%,
+	100% {
+		opacity: 0.75;
+		transform: translateZ(0) scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: translateZ(0) scale(1.06);
+	}
+}
+
+@keyframes h3dSpin {
+	from {
+		transform: rotateX(0deg) rotateY(0deg);
+	}
+	to {
+		transform: rotateX(360deg) rotateY(360deg);
+	}
+}
+
+@keyframes h3dFloat {
+	0%,
+	100% {
+		transform: translateY(0) rotateX(0deg) rotateY(0deg) translateZ(0);
+	}
+	50% {
+		transform: translateY(-22px) rotateX(10deg) rotateY(20deg) translateZ(20px);
+	}
+}
+
+@keyframes h3dParticle {
+	0% {
+		transform: translate3d(0, 0, 0) scale(0.6);
+		opacity: 0;
+	}
+	12% {
+		opacity: 0.9;
+	}
+	50% {
+		transform: translate3d(14px, -40px, 0) scale(1);
+	}
+	88% {
+		opacity: 0.5;
+	}
+	100% {
+		transform: translate3d(-10px, -84px, 0) scale(0.5);
+		opacity: 0;
+	}
+}
+
+@keyframes h3dPulse {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(227, 6, 19, 0.5), 0 0 14px rgba(227, 6, 19, 0.8);
+	}
+	50% {
+		box-shadow: 0 0 0 7px rgba(227, 6, 19, 0), 0 0 18px rgba(227, 6, 19, 0.95);
+	}
+}
+
+@keyframes h3dBtnPulse {
+	0%,
+	100% {
+		box-shadow: 0 0 20px rgba(227, 6, 19, 0.4);
+	}
+	50% {
+		box-shadow: 0 0 34px rgba(227, 6, 19, 0.65);
+	}
+}
+
+/* ------------------------------------------------------------------ LAYOUT */
+
+/* Tablet — the fighter drops below the copy. */
+@media (max-width: 1199px) {
+	.h3d__grid {
+		grid-template-columns: 1fr;
+		padding-top: 150px;
+		gap: 0;
+	}
+
+	.h3d__copy {
+		max-width: 760px;
+	}
+
+	.h3d__stage {
+		height: 460px;
+		margin-top: -20px;
+	}
+
+	.h3d__fighter-enter {
+		padding-right: 0;
+		justify-content: center;
+	}
+
+	.h3d__fighter {
+		height: 96%;
+	}
+
+	.h3d__obj--c,
+	.h3d__obj--l {
+		display: none;
+	}
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+	.h3d__grid {
+		padding: 132px 5% 40px;
+	}
+
+	.h3d__title {
+		font-size: 36px;
+		line-height: 0.98;
+	}
+
+	.h3d__lede {
+		font-size: 13.5px;
+	}
+
+	.h3d__cta {
+		gap: 10px;
+	}
+
+	.h3d__btn {
+		flex: 1 1 auto;
+		justify-content: center;
+		padding: 14px 18px;
+		font-size: 11px;
+		letter-spacing: 1.1px;
+	}
+
+	.h3d__facts {
+		gap: 30px;
+		margin-top: 32px;
+	}
+
+	.h3d__fact b {
+		font-size: 26px;
+	}
+
+	.h3d__stage {
+		height: 400px;
+	}
+
+	.h3d__obj--c,
+	.h3d__obj--d,
+	.h3d__obj--f,
+	.h3d__obj--l,
+	.h3d__obj--j {
+		display: none;
+	}
+
+	.h3d__obj--g {
+		width: 108px;
+	}
+
+	.h3d__obj--h {
+		width: 120px;
+	}
+
+	.h3d__obj--i {
+		width: 96px;
+	}
+
+	.h3d__obj--k {
+		width: 72px;
+	}
+}
+
+@media (max-width: 420px) {
+	.h3d__facts {
+		gap: 20px;
+	}
+
+	.h3d__fact b {
+		font-size: 22px;
+	}
+
+	.h3d__fact span {
+		font-size: 9px;
+		letter-spacing: 1.4px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.h3d__cube,
+	.h3d__cube3d,
+	.h3d__svg,
+	.h3d__particle,
+	.h3d__glow,
+	.h3d__tex,
+	.h3d__btn--primary,
+	.h3d__eyebrow-dot {
+		animation: none !important;
+	}
+}
