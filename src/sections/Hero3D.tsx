@@ -15,14 +15,7 @@ import {
 	useSpring,
 	useTransform,
 } from "framer-motion";
-import {
-	Belt3D,
-	Cube3D,
-	FocusMitt3D,
-	MasterFigure,
-	Nunchuck3D,
-	Particle,
-} from "./threeD";
+import { MasterFigure, Particle } from "./threeD";
 
 /* ------------------------------------------------------------------ COPY */
 
@@ -146,8 +139,6 @@ const Hero3D = () => {
 
 	const fighterX = useTransform(softX, [-1, 1], [34, -34]);
 	const fighterY = useTransform(softY, [-1, 1], [22, -22]);
-	const propX = useTransform(softX, [-1, 1], [-46, 46]);
-	const propY = useTransform(softY, [-1, 1], [-30, 30]);
 	const copyX = useTransform(softX, [-1, 1], [14, -14]);
 
 	const { scrollYProgress } = useScroll({
@@ -268,40 +259,6 @@ const Hero3D = () => {
 				{/* --------------------------------------------------- stage */}
 				<div className="h3d__stage">
 					<div className="h3d__glow" aria-hidden="true" />
-
-					<motion.div
-						className="h3d__props"
-						style={{ x: propX, y: propY }}
-						aria-hidden="true"
-					>
-						<Cube3D size={54} tone="red" className="h3d__obj--a" />
-						<Cube3D size={34} tone="red" className="h3d__obj--b" />
-						<Cube3D size={26} tone="white" className="h3d__obj--c" />
-						<Cube3D size={46} tone="white" className="h3d__obj--d" />
-						<Cube3D size={30} tone="red" className="h3d__obj--e" />
-						<Cube3D size={22} tone="white" className="h3d__obj--f" />
-
-						<div className="h3d__obj h3d__obj--belt h3d__obj--g">
-							<Belt3D tone="black" />
-						</div>
-						<div className="h3d__obj h3d__obj--belt h3d__obj--h">
-							<Belt3D tone="white" />
-						</div>
-
-						<div className="h3d__obj h3d__obj--nun h3d__obj--i">
-							<Nunchuck3D />
-						</div>
-						<div className="h3d__obj h3d__obj--nun h3d__obj--j">
-							<Nunchuck3D />
-						</div>
-
-						<div className="h3d__obj h3d__obj--mitt h3d__obj--k">
-							<FocusMitt3D />
-						</div>
-						<div className="h3d__obj h3d__obj--mitt h3d__obj--l">
-							<FocusMitt3D />
-						</div>
-					</motion.div>
 
 					<motion.div
 						className="h3d__fighter-scroll"
