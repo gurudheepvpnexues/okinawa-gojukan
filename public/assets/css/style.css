@@ -310,7 +310,7 @@ a:focus{
 	width: auto;
 	max-width: 460px;
 }
-.site_logo a{
+.site_logo a:not(.brand_link){
 	display: block;
 }
 

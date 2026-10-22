@@ -11,22 +11,21 @@ import { memo } from "react";
 /* ----------------------------------------------------------------- MASTER */
 
 /**
- * The chief instructor of the dojo, holding a championship medal.
- * Shipped as a real photograph and pushed into the red / black / white
- * palette with a duotone grade so it sits inside the hero stage.
+ * The chief instructor of the dojo receiving his instructor certificate
+ * from the IKO grand master in Okinawa. Shipped as a real photograph and
+ * pushed into the red / black / white palette so it sits inside the hero stage.
  */
 export const MasterFigure = memo(
 	({ className = "" }: { className?: string }) => (
 		<figure className={`h3d__master ${className}`}>
 			<div className="h3d__master-frame">
 				<picture>
-					<source srcSet="assets/img/banner/master.webp" type="image/webp" />
 					<img
 						className="h3d__master-img"
-						src="assets/img/banner/master.png"
-						alt="The chief instructor of Okinawa Gojukan Karate-Do standing on the mat and holding a championship medal, draped in the Indian tricolour"
-						width={1024}
-						height={1536}
+						src="assets/img/banner/master.jpeg"
+						alt="The chief instructor of Okinawa Gojukan Karate-Do receiving his instructor certificate from the IKO grand master in Okinawa"
+						width={1200}
+						height={1600}
 						loading="eager"
 						decoding="async"
 					/>
