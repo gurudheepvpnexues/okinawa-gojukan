@@ -525,7 +525,13 @@ export const blogPosts = [
 
 /* --------------------------------------------------------------- GALLERY */
 
-export const galleryItems = [
+export const galleryItems: { img: string; caption: string; pos?: string }[] = [
+	{ img: "assets/img/gallery/okinawa-belt-presentation.jpg", caption: "Red belt presented by the senior master in Okinawa", pos: "50% 22%" },
+	{ img: "assets/img/gallery/okinawa-red-belt.jpg", caption: "With the senior master after the belt ceremony", pos: "50% 22%" },
+	{ img: "assets/img/gallery/okinawa-dan-certificate.jpg", caption: "Japanese dan certificate awarded in Okinawa", pos: "50% 22%" },
+	{ img: "assets/img/gallery/okinawa-grading-certificate.jpg", caption: "Grading certificate from the Okinawa hombu dojo", pos: "50% 22%" },
+	{ img: "assets/img/gallery/okinawa-calligraphy-frame.jpg", caption: "Calligraphy certificate presented at the hombu dojo", pos: "50% 22%" },
+	{ img: "assets/img/gallery/okinawa-calligraphy-scroll.jpg", caption: "Calligraphy scroll presented in Okinawa", pos: "50% 22%" },
 	{ img: "assets/img/gallery/training-class.jpg", caption: "Evening kihon class on the main mat" },
 	{ img: "assets/img/gallery/dojo-awards.jpg", caption: "Awards day with the Yelahanka dojo" },
 	{ img: "assets/img/gallery/championship-stage.jpg", caption: "Trophy presentation on stage" },

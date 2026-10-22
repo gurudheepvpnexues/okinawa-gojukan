@@ -1838,6 +1838,13 @@ img {
 	animation: lbIn .28s var(--ease);
 }
 
+/* The overlay lives inside .container (z-index: 1), which the header (z-index: 3)
+   would otherwise paint over — hiding the close button. Lift the container while
+   the lightbox is open so the overlay and its controls sit above the header. */
+.container:has(> .lb) {
+	z-index: 13000;
+}
+
 @keyframes lbIn {
 	from {
 		opacity: 0;
@@ -2735,12 +2742,13 @@ img {
 }
 
 .brand_badge img {
-	border-radius: 0 !important;
+	border-radius: 50%;
 }
 
 .brand_badge {
-	background: #ffffff;
-	border: 2px solid #e30613;
+	background: transparent;
+	border: none;
+	padding: 0;
 }
 
 .brand_kn {

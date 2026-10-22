@@ -652,7 +652,12 @@ export const Mosaic = memo(() => {
 							}
 						}}
 					>
-						<img src={item.img} alt={item.caption} loading="lazy" />
+						<img
+							src={item.img}
+							alt={item.caption}
+							loading="lazy"
+							style={item.pos ? { objectPosition: item.pos } : undefined}
+						/>
 						<figcaption>{item.caption}</figcaption>
 					</motion.figure>
 				))}
