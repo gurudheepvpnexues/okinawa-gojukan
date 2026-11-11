@@ -38,14 +38,62 @@ const BlogPage = () => {
 					</div>
 				</section>
 
-				{/* 02 — Posts */}
+				{/* 03 — Featured achievement */}
+				<section className="sec sec--paper2">
+					<div className="container">
+						<div className="feature">
+							<Link
+								to="/blog-details?post=tenth-dan-red-belt"
+								className="feature__figure"
+							>
+								<img
+									src="assets/img/gallery/okinawa-red-belt.jpg"
+									alt="Hanshi Dr. S. C. Durai with Grand Master Hanshi Dr. Tetsuhiro Hokama in Okinawa"
+								/>
+								<span className="feature__tag">Featured</span>
+							</Link>
+							<div>
+								<p className="feature__kicker">Achievements — Okinawa</p>
+								<h2 className="feature__title">
+									Red Belt 10th Dan, awarded in Okinawa
+								</h2>
+								<p className="feature__text">
+									Our Chief Instructor, Hanshi Dr. S. C. Durai, was awarded the
+									Red Belt 10th Dan in Goju-Ryu by Grand Master Hanshi Dr.
+									Tetsuhiro Hokama — the first Indian to receive the rank
+									directly from the birthplace of karate. The full statement,
+									with the pictures from the hall.
+								</p>
+								<div className="feature__stats">
+									<div>
+										<b>10th Dan</b>
+										<span>Red belt, Goju-Ryu</span>
+									</div>
+									<div>
+										<b>Okinawa</b>
+										<span>Birthplace of karate</span>
+									</div>
+									<div>
+										<b>1st Indian</b>
+										<span>So awarded</span>
+									</div>
+								</div>
+								<Link to="/blog-details?post=tenth-dan-red-belt" className="arrow-link">
+									Read the announcement <i className="ph ph-arrow-right"></i>
+								</Link>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				{/* 04 — Posts */}
 				<section className="sec sec--paper2 sec--grid">
 					<div className="container">
 						<SecHead
-							index="02"
+							index="03"
 							kicker="All posts"
 							title="Everything we have written"
-							lede="Six pieces, in reverse order of publication. The archive grows every month."
+							lede="Nine pieces, in reverse order of publication. The archive grows every month."
 						/>
 					</div>
 				</section>

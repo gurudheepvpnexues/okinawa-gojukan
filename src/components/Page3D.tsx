@@ -196,7 +196,7 @@ export const PageStage = memo(
 								);
 							})}
 						</h1>
-						{subtitle && <p className="p3d-sub">{${subtitle}}</p>}
+						{subtitle && <p className="p3d-sub">{subtitle}</p>}
 						{crumbs && crumbs.length > 0 && (
 							<nav className="p3d-crumbs" aria-label="Breadcrumb">
 								{crumbs.map((c, i) => (

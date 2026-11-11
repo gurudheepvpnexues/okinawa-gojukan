@@ -39,3 +39,7 @@ documentation
 *.sw?
 
 .vercel
+
+# Python bytecode
+__pycache__/
+*.pyc

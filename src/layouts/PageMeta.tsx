@@ -45,9 +45,9 @@ const meta: Record<string, { title: string; description: string }> = {
 			"The full syllabus, pathway, class schedule and fee structure of the graded karate-do programme at the dojo.",
 	},
 	"/blog-details": {
-		title: `Technique notes | ${siteName}`,
+		title: `World championship report | ${siteName}`,
 		description:
-			"A close look at one training technique, written by the instructors of Okinawa Gojukan Karate-Do Training School.",
+			"Three golds in Bengaluru: the dojo's report from the XVI WKC World Championship, from final preparation to the podium.",
 	},
 	"/event-details": {
 		title: `Event details | ${siteName}`,

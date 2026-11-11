@@ -202,6 +202,12 @@
 	text-align: left;
 }
 
+.h3d__lede em {
+	font-style: normal;
+	font-weight: 700;
+	color: #fff;
+}
+
 /* --------------------------------------------------------------------- CTAS */
 
 .h3d__cta {

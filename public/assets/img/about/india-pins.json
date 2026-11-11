@@ -1,0 +1,58 @@
+[
+  {
+    "id": "bangalore",
+    "label": "Bangalore",
+    "x": 217.31,
+    "y": 455.09,
+    "side": "right",
+    "dy": -6
+  },
+  {
+    "id": "chennai",
+    "label": "Chennai",
+    "x": 267.56,
+    "y": 453.09,
+    "side": "left",
+    "dy": 10
+  },
+  {
+    "id": "durga",
+    "label": "Durga \u00b7 Delhi",
+    "x": 210.19,
+    "y": 170.73,
+    "side": "right",
+    "dy": -8
+  },
+  {
+    "id": "udhampur",
+    "label": "Udhampur",
+    "x": 167.62,
+    "y": 91.09,
+    "side": "left",
+    "dy": -14
+  },
+  {
+    "id": "maharashtra",
+    "label": "Maharashtra",
+    "x": 182.06,
+    "y": 331.82,
+    "side": "left",
+    "dy": -4
+  },
+  {
+    "id": "goa",
+    "label": "Goa",
+    "x": 146.81,
+    "y": 409.09,
+    "side": "left",
+    "dy": 16
+  },
+  {
+    "id": "andhra",
+    "label": "Andhra Pradesh",
+    "x": 257.62,
+    "y": 401.64,
+    "side": "right",
+    "dy": 22
+  }
+]

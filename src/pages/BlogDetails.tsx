@@ -1,21 +1,26 @@
 import { memo } from "react";
+import { useSearchParams } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import BlogDetails from "../components/BlogDetails";
 import { Closing, Masthead } from "../sections/Primitives";
+import { articles } from "../sections/articles";
 
 const BlogDetailsPage = () => {
+	const [params] = useSearchParams();
+	const article = articles[params.get("post") ?? ""] ?? articles.discipline;
+
 	return (
 		<>
 			<Header />
 			<main id="main">
 				<Masthead
 					index="01"
-					kicker="Journal"
-					title="A Journey of Discipline and Self-Discovery"
-					lede="Karate teaches far more than kicks and punches. How steady training shapes focus, patience and self-belief."
+					kicker={article.category}
+					title={article.title}
+					lede={article.standfirst}
 					background="assets/img/banner/blog-details.jpg"
-					crumbs={[{ label: "Journal" }, { label: "Article" }]}
+					crumbs={[{ label: "Journal" }, { label: article.category }]}
 				/>
 				<BlogDetails />
 				<Closing

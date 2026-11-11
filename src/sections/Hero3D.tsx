@@ -32,8 +32,17 @@ const TITLE_LINES: { t: string; red: boolean }[][] = [
 	],
 ];
 
-const LEDE =
-	"Okinawan karate-do taught to the standards of the Indian defence services — Army, Navy, Airforce, Para and NSG Commandos. A graded syllabus, a competition squad, and a dojo that has been training in Bangalore since 2003.";
+const LEDE = (
+	<>
+		Our Chief Instructor,{" "}
+		<em>Hanshi Dr. S. C. Durai, 10th Dan</em>, was awarded the{" "}
+		<em>Red Belt</em> in Goju-Ryu at Okinawa, Japan — conferred by Grand
+		Master Hanshi Dr. Tetsuhiro Hokama, and the first Indian to receive the
+		rank directly from the birthplace of karate. Okinawan karate-do taught to
+		the standards of the Indian defence services — Army, Navy, Airforce, Para
+		and NSG Commandos.
+	</>
+);
 
 const FACTS = [
 	{ value: 2003, label: "Dojo founded" },

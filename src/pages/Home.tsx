@@ -8,6 +8,7 @@ import {
 	Instructors,
 	Journal,
 	Numbers,
+	PhotoStrip,
 	Pillars,
 	Timetable,
 	Values,
@@ -15,6 +16,7 @@ import {
 } from "../sections/Blocks";
 import {
 	eventFeature,
+	homeAchievements,
 	homeAudience,
 	homeDisciplines,
 	homeMethod,
@@ -27,6 +29,23 @@ const Home = () => {
 			<Header />
 			<main id="main">
 				<Hero3D />
+
+				{/* Photo strips — auto-scrolling championship photos */}
+				<PhotoStrip />
+
+				{/* Photo strip — latest achievements, scrolls left → right */}
+				<PhotoStrip
+					items={homeAchievements}
+					direction={-1}
+					kicker="Latest achievements"
+					title={
+						<>
+							What the last two seasons <em>brought back</em>
+						</>
+					}
+					lede="Gold at IMGC Uzbekistan, the WKC/FW Asian Karate Championship squad and the homecoming at the dojo — the podium photographs behind the medal count."
+					label="Latest achievement photographs"
+				/>
 
 				{/* 01 — The dojo */}
 				<section className="sec sec--grid">

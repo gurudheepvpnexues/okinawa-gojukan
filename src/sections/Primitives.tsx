@@ -55,6 +55,8 @@ interface SplitProps {
 	flip?: boolean;
 	cta?: { label: string; to: string };
 	aspect?: string;
+	srcSet?: string;
+	sizes?: string;
 }
 
 export const Split = memo(
@@ -68,16 +70,26 @@ export const Split = memo(
 		points = [],
 		flip = false,
 		cta,
+		aspect,
+		srcSet,
+		sizes,
 	}: SplitProps) => (
 		<div className={`split ${flip ? "split--flip" : ""}`}>
 			<motion.div
-				className="split__media"
+				className={`split__media${aspect ? " split__media--ratio" : ""}`}
+				style={aspect ? { aspectRatio: aspect } : undefined}
 				initial={{ opacity: 0, y: 34 }}
 				whileInView={{ opacity: 1, y: 0 }}
 				viewport={{ once: true, amount: 0.2 }}
 				transition={{ duration: 0.8, ease }}
 			>
-				<img src={image} alt={alt} loading="lazy" />
+				<img
+					src={image}
+					alt={alt}
+					loading="lazy"
+					srcSet={srcSet}
+					sizes={sizes}
+				/>
 				{tag && <span className="split__tag">{tag}</span>}
 			</motion.div>
 

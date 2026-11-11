@@ -189,6 +189,33 @@ export const homeMarquee = [
 	"Humility",
 ];
 
+export const homePhotos = [
+	{ src: "assets/img/New images/image 5.jpeg", alt: "Podium finishers at the WKC World Karate Championship", w: 1600, h: 1200 },
+	{ src: "assets/img/New images/image 12.jpeg", alt: "Dojo representatives with the championship officials", w: 1200, h: 1600 },
+	{ src: "assets/img/New images/image 15.jpeg", alt: "Medalists with the national flag at the World Karate Championship", w: 1200, h: 1600 },
+	{ src: "assets/img/New images/image 68.jpeg", alt: "The full championship delegation in front of the WKC backdrop", w: 4096, h: 1842 },
+	{ src: "assets/img/New images/image 75.jpeg", alt: "Team photograph with medals and certificates at the XVI WKC World Karate Championship", w: 1600, h: 1200 },
+	{ src: "assets/img/New images/image 77.jpeg", alt: "A medalist presented with her certificate by the championship officials", w: 1200, h: 1600 },
+	{ src: "assets/img/about/okinawa-kata-gate.jpg", alt: "Karateka performing kata in front of a traditional red temple", w: 1440, h: 1920 },
+	{ src: "assets/img/New images/image 79.jpeg", alt: "Officials and competitors at the WKC Asian Karate Championship", w: 1600, h: 902 },
+	{ src: "assets/img/New images/image 80.jpeg", alt: "Instructors in black hakama at the dojo", w: 1173, h: 960 },
+];
+
+export const homeAchievements = [
+	{ src: "assets/img/New images/image 81.jpeg", alt: "Junior champion on the top of the podium with gold and the tricolour at IMGC Uzbekistan", w: 3024, h: 4032 },
+	{ src: "assets/img/New images/image 82.jpeg", alt: "Champion on podium number one with the Indian flag at the World Championship", w: 4032, h: 3024 },
+	{ src: "assets/img/New images/image 83.jpeg", alt: "Young gold medalist with her diploma and coach in front of the national flag", w: 3024, h: 4032 },
+	{ src: "assets/img/New images/image 84.jpeg", alt: "Dojo medalists honoured with garlands and shawls at the award ceremony", w: 1280, h: 960 },
+	{ src: "assets/img/New images/image 85.jpeg", alt: "Gold medalist on the podium draped in the tricolour at IMGC-2024 Uzbekistan", w: 4032, h: 3024 },
+	{ src: "assets/img/New images/image 86.jpeg", alt: "Medalist with her diploma and coach holding the national flag", w: 3120, h: 4160 },
+	{ src: "assets/img/New images/image 87.jpeg", alt: "Silver medalist wrapped in the Indian flag with his coach at the World Championship", w: 3024, h: 4032 },
+	{ src: "assets/img/New images/image 88.jpeg", alt: "Three young medalists with the flags of India, Kazakhstan and Uzbekistan in the arena", w: 1600, h: 1200 },
+	{ src: "assets/img/New images/image 89.jpeg", alt: "Karateka on the podium with the tricolour at the WKC/FW Asian Karate Championship", w: 960, h: 1280 },
+	{ src: "assets/img/New images/image 90.jpeg", alt: "Green-belt medalist holding the Indian flag on the podium at the Asian Karate Championship", w: 960, h: 1280 },
+	{ src: "assets/img/New images/image 91.jpeg", alt: "The team with the trophy and championship officials at the Asian Karate Championship", w: 960, h: 1280 },
+	{ src: "assets/img/New images/image 92.jpeg", alt: "The full squad in blazers at the dojo award ceremony", w: 1280, h: 960 },
+];
+
 export const homeVoices = [
 	{
 		img: "assets/img/testimonials/1.jpg",
@@ -250,14 +277,23 @@ export const homeInstructors = [
 	},
 ];
 
-export const homeJournal = [
+export const homeJournal: {
+	img: string;
+	slug?: string;
+	date: string;
+	author: string;
+	avatar: string;
+	title: string;
+	desc: string;
+}[] = [
 	{
-		img: "assets/img/blog/1.jpg",
-		date: "18 August, 2026",
-		author: "Dojo Admin",
-		avatar: "assets/img/blog/avator/1.jpg",
-		title: "Martial Arts: A Journey of Discipline and Self-Discovery",
-		desc: "Karate teaches far more than kicks and punches. Discover how steady training shapes focus, patience and self-belief.",
+		img: "assets/img/gallery/okinawa-red-belt.jpg",
+		slug: "tenth-dan-red-belt",
+		date: "09 November, 2026",
+		author: "Hanshi Dr. S. C. Durai",
+		avatar: "assets/img/blog/avator/5.jpg",
+		title: "Red Belt 10th Dan: awarded in Okinawa",
+		desc: "Our Chief Instructor returns from Okinawa with the Red Belt 10th Dan in Goju-Ryu, conferred by Grand Master Hanshi Dr. Tetsuhiro Hokama — the first Indian to receive the rank directly from the birthplace of karate.",
 	},
 	{
 		img: "assets/img/blog/2.jpg",
@@ -280,7 +316,9 @@ export const homeJournal = [
 /* ----------------------------------------------------------------- ABOUT */
 
 export const aboutStory = {
-	image: "assets/img/programs/2-kata.jpg",
+	image: "assets/img/about/okinawa-kata-gate.jpg",
+	imageSrcSet:
+		"assets/img/about/okinawa-kata-gate.jpg 1440w, assets/img/about/okinawa-kata-gate-4k.jpg 2880w",
 	tag: "Since 2003",
 	title: "A dojo built on the Okinawan way of training",
 	lead: "Okinawa Gojukan Karate-Do began with nine students, one wooden floor and a single rule: train properly, or do not train at all.",
@@ -289,6 +327,7 @@ export const aboutStory = {
 		"Karate-Do, Kobudo, Jujitsu and weapons taught in one continuous syllabus",
 		"Quarterly belt examinations with an independent visiting examiner",
 		"Classes for children from five years old through to active adults",
+		"International podiums in Kazakhstan, Uzbekistan, Serbia and India",
 	],
 };
 
@@ -320,8 +359,13 @@ export const aboutTimeline = [
 	},
 	{
 		year: "2026",
-		title: "Five hundred students",
-		text: "The dojo passes five hundred students trained, with a competition record of twenty national podiums.",
+		title: "Nearly 1,200 students",
+		text: "The school passes 1,200 students trained across seven branches, with a competition record of twenty national podiums.",
+	},
+	{
+		year: "2026",
+		title: "Beyond the borders",
+		text: "International podiums in Kazakhstan, Uzbekistan and Serbia, and a WKC world championship held in India — the first time the school has stood on a world stage at home.",
 	},
 ];
 
@@ -350,11 +394,72 @@ export const aboutValues = [
 
 export const aboutFacts = [
 	{ label: "Founded", value: "2003 · Yelahanka, Bangalore" },
+	{ label: "Students trained", value: "Nearly 1,200 across every branch" },
+	{ label: "Branches", value: "Seven · across six states" },
+	{ label: "International podiums", value: "Kazakhstan · Uzbekistan · Serbia · India" },
 	{ label: "Dojo floor", value: "Two halls · 1,400 sq ft" },
 	{ label: "Weekly sessions", value: "19 across seven days" },
 	{ label: "Belt levels", value: "Nine · white to black" },
 	{ label: "Grading cycle", value: "Quarterly" },
 	{ label: "Instructors", value: "Four full-time, two visiting" },
+];
+
+export const aboutInternational = [
+	{
+		country: "Kazakhstan",
+		note: "International championships — world-level podiums",
+	},
+	{
+		country: "Uzbekistan",
+		note: "IMGC World Championship — gold on the podium",
+	},
+	{
+		country: "Serbia",
+		note: "International circuit — senior squad selection",
+	},
+	{
+		country: "India",
+		note: "National opens, state championships and the WKC",
+	},
+];
+
+export const aboutBranches = [
+	{
+		city: "Bangalore",
+		place: "Yelahanka, Karnataka",
+		note: "Head dojo · two halls on the original mat · opened 2003",
+		head: true,
+	},
+	{
+		city: "Chennai",
+		place: "Tamil Nadu",
+		note: "Full syllabus, weekly grading and a working competition squad",
+	},
+	{
+		city: "Durga",
+		place: "Delhi",
+		note: "Karate-do and kobudo taught to the same grading standard",
+	},
+	{
+		city: "Udhampur",
+		place: "Jammu & Kashmir",
+		note: "Branch dojo with a dedicated Little Warriors class",
+	},
+	{
+		city: "Maharashtra",
+		place: "Across the state",
+		note: "District-level branches and an annual state grading camp",
+	},
+	{
+		city: "Goa",
+		place: "Across the state",
+		note: "Seasonal classes and a coastal kata team",
+	},
+	{
+		city: "Andhra Pradesh",
+		place: "Across the state",
+		note: "District branches, open-air grading camps in summer",
+	},
 ];
 
 export const aboutVoices = [
@@ -472,7 +577,42 @@ export const eventChambers = [
 
 /* ------------------------------------------------------------------ BLOG */
 
-export const blogPosts = [
+export const blogPosts: {
+	img: string;
+	slug?: string;
+	date: string;
+	author: string;
+	avatar: string;
+	title: string;
+	desc: string;
+}[] = [
+	{
+		img: "assets/img/gallery/okinawa-red-belt.jpg",
+		slug: "tenth-dan-red-belt",
+		date: "09 November, 2026",
+		author: "Hanshi Dr. S. C. Durai",
+		avatar: "assets/img/blog/avator/5.jpg",
+		title: "Red Belt 10th Dan: awarded in Okinawa",
+		desc: "Our Chief Instructor returns from Okinawa with the Red Belt 10th Dan in Goju-Ryu, conferred by Grand Master Hanshi Dr. Tetsuhiro Hokama — the first Indian to receive the rank directly from the birthplace of karate.",
+	},
+	{
+		img: "assets/img/New images/image 2.jpeg",
+		slug: "world-championship-2026",
+		date: "02 November, 2026",
+		author: "Chief Instructor",
+		avatar: "assets/img/blog/avator/5.jpg",
+		title: "Three golds in Bengaluru: inside the XVI WKC World Championship",
+		desc: "A week of kata, kumite and kobudo at the world championship — and the months of preparation that put the squad on the podium.",
+	},
+	{
+		img: "assets/img/New images/image 63.jpeg",
+		slug: "kobudo-world-stage",
+		date: "24 October, 2026",
+		author: "Kobudo Instructor",
+		avatar: "assets/img/blog/avator/4.jpg",
+		title: "Bo staff and bronze: kobudo on the world stage",
+		desc: "The weapons division travelled with the kumite squad this year. What the bo staff team learned from a first world championship.",
+	},
 	{
 		img: "assets/img/blog/1.jpg",
 		date: "18 August, 2026",
@@ -542,12 +682,98 @@ export const galleryItems: { img: string; caption: string; pos?: string }[] = [
 	{ img: "assets/img/gallery/trophy-portrait-1.jpg", caption: "Spirit of the Dojo — kata division medal" },
 	{ img: "assets/img/gallery/trophy-portrait-2.jpg", caption: "National open — kumite division podium" },
 	{ img: "assets/img/gallery/trophy-portrait-3.jpg", caption: "Team kata — championship trophy" },
+	{ img: "assets/img/New images/image 1.jpeg", caption: "Team and officials on the tatami at the WKC championship" },
+	{ img: "assets/img/New images/image 2.jpeg", caption: "Double gold in front of the national flag" },
+	{ img: "assets/img/New images/image 3.jpeg", caption: "Silver in senior female kumite, XVI WKC World Championship" },
+	{ img: "assets/img/New images/image 5.jpeg", caption: "Seniors on the podium — gold, silver and bronze" },
+	{ img: "assets/img/New images/image 6.jpeg", caption: "Medalists with their WKC certificates" },
+	{ img: "assets/img/New images/image 7.jpeg", caption: "Three golds for the dojo at the XVI WKC" },
+	{ img: "assets/img/New images/image 8.jpeg", caption: "Centre stage with the tricolour at the WKC ceremony" },
+	{ img: "assets/img/New images/image 10.jpeg", caption: "A second gold run at the world championship" },
+	{ img: "assets/img/New images/image 11.jpeg", caption: "Three golds on the tatami" },
+	{ img: "assets/img/New images/image 12.jpeg", caption: "With the international officials in Bengaluru" },
+	{ img: "assets/img/New images/image 13.jpeg", caption: "Coaches and the junior team on the competition mat" },
+	{ img: "assets/img/New images/image 14.jpeg", caption: "Podium finish for the senior girls' kumite" },
+	{ img: "assets/img/New images/image 15.jpeg", caption: "Two medalists and their coach under the flag" },
+	{ img: "assets/img/New images/image 16.jpeg", caption: "Medals, brown belt and the bo staff" },
+	{ img: "assets/img/New images/image 18.jpeg", caption: "The women's squad on podium one" },
+	{ img: "assets/img/New images/image 19.jpeg", caption: "Gold, silver and bronze across three nations" },
+	{ img: "assets/img/New images/image 20.jpeg", caption: "Three medals and the flag beneath the WKC crest" },
+	{ img: "assets/img/New images/image 21.jpeg", caption: "Boys' kata podium with medals and certificates" },
+	{ img: "assets/img/New images/image 22.jpeg", caption: "Three golds at the XVI WKC, Bengaluru" },
+	{ img: "assets/img/New images/image 23.jpeg", caption: "Gold for Kazakhstan, silver and bronze for India" },
+	{ img: "assets/img/New images/image 24.jpeg", caption: "Three medals and the tricolour at the WKC crest" },
+	{ img: "assets/img/New images/image 25.jpeg", caption: "Champion's walk with the flag and three golds" },
+	{ img: "assets/img/New images/image 26.jpeg", caption: "Medalists and officials at the WKC/FW ceremony" },
+	{ img: "assets/img/New images/image 27.jpeg", caption: "Gold and silver in front of the national flag" },
+	{ img: "assets/img/New images/image 28.jpeg", caption: "Kobudo team kneeling at the ready on the tatami" },
+	{ img: "assets/img/New images/image 29.jpeg", caption: "Medalists with their World Karate Confederation certificates" },
+	{ img: "assets/img/New images/image 30.jpeg", caption: "The full dojo squad on stage at the XVI WKC" },
+	{ img: "assets/img/New images/image 32.jpeg", caption: "The belt ladder on the dojo wall" },
+	{ img: "assets/img/New images/image 33.jpeg", caption: "Three golds held high with the tricolour" },
+	{ img: "assets/img/New images/image 34.jpeg", caption: "Junior medalists with certificates and the flag" },
+	{ img: "assets/img/New images/image 35.jpeg", caption: "A first gold in front of the national flag" },
+	{ img: "assets/img/New images/image 36.jpeg", caption: "Certificate and gold on the championship stage" },
+	{ img: "assets/img/New images/image 37.jpeg", caption: "The women's team on the podium" },
+	{ img: "assets/img/New images/image 38.jpeg", caption: "Gold at the top of the podium, medals all round" },
+	{ img: "assets/img/New images/image 39.jpeg", caption: "Kazakhstan gold, India silver and bronze" },
+	{ img: "assets/img/New images/image 40.jpeg", caption: "Three medals and the WKC crest" },
+	{ img: "assets/img/New images/image 41.jpeg", caption: "Kobudo podium with staff, medals and certificates" },
+	{ img: "assets/img/New images/image 42.jpeg", caption: "Two medalists and their coach under the flag" },
+	{ img: "assets/img/New images/image 43.jpeg", caption: "Young medalists on the podium at the WKC" },
+	{ img: "assets/img/New images/image 44.jpeg", caption: "Five medalists in front of the championship crest" },
+	{ img: "assets/img/New images/image 45.jpeg", caption: "Three medals held wide with the tricolour" },
+	{ img: "assets/img/New images/image 47.jpeg", caption: "Junior champions with the flag and certificates" },
+	{ img: "assets/img/New images/image 48.jpeg", caption: "Kids' podium presentation at the WKC championship" },
+	{ img: "assets/img/New images/image 49.jpeg", caption: "Boys' kumite podium with four Indian medalists" },
+	{ img: "assets/img/New images/image 50.jpeg", caption: "Victory ceremony on podium one" },
+	{ img: "assets/img/New images/image 80.jpeg", caption: "The senior instructors lined up in hakama at the dojo" },
+	{ img: "assets/img/New images/image 81.jpeg", caption: "Gold on podium one with the tricolour at IMGC Uzbekistan" },
+	{ img: "assets/img/New images/image 82.jpeg", caption: "Champion with the flag at the XV World Championship" },
+	{ img: "assets/img/New images/image 83.jpeg", caption: "A young gold medalist, her diploma and her coach" },
+	{ img: "assets/img/New images/image 84.jpeg", caption: "Medalists honoured with garlands at the dojo ceremony" },
+	{ img: "assets/img/New images/image 85.jpeg", caption: "Boys' podium with the flag at IMGC-2024 Uzbekistan" },
+	{ img: "assets/img/New images/image 86.jpeg", caption: "Medalist with certificate and coach under the flag" },
+	{ img: "assets/img/New images/image 87.jpeg", caption: "Silver for the dojo, wrapped in the tricolour" },
+	{ img: "assets/img/New images/image 88.jpeg", caption: "Three medalists with the flags of India, Kazakhstan and Uzbekistan" },
+	{ img: "assets/img/New images/image 89.jpeg", caption: "Podium finish at the WKC/FW Asian Karate Championship" },
+	{ img: "assets/img/New images/image 90.jpeg", caption: "Green belt, medal and flag at the Asian Karate Championship" },
+	{ img: "assets/img/New images/image 46.jpeg", caption: "The women's team on podium with certificates and the flag" },
+	{ img: "assets/img/New images/image 51.jpeg", caption: "Kumite podium — Kazakhstan silver, India bronze" },
+	{ img: "assets/img/New images/image 52.jpeg", caption: "Boys' kumite podium with the gold and the tricolour" },
+	{ img: "assets/img/New images/image 53.jpeg", caption: "Alone at the top — gold on podium one" },
+	{ img: "assets/img/New images/image 54.jpeg", caption: "Champion with the flag overhead on podium one" },
+	{ img: "assets/img/New images/image 55.jpeg", caption: "Three golds on a single ribbon" },
+	{ img: "assets/img/New images/image 56.jpeg", caption: "A second boys' podium with gold and the flag" },
+	{ img: "assets/img/New images/image 57.jpeg", caption: "Arms wide in front of the tricolour" },
+	{ img: "assets/img/New images/image 58.jpeg", caption: "Three medals and the tricolour beneath the XVI WKC crest" },
+	{ img: "assets/img/New images/image 59.jpeg", caption: "Women's kumite podium — Kazakhstan, Belarus and India" },
+	{ img: "assets/img/New images/image 60.jpeg", caption: "Boys' team podium with the flag and four medals" },
+	{ img: "assets/img/New images/image 61.jpeg", caption: "Three golds for the junior female division" },
+	{ img: "assets/img/New images/image 62.jpeg", caption: "Kyrgyzstan gold with India silver and Kazakhstan bronze" },
+	{ img: "assets/img/New images/image 63.jpeg", caption: "Kobudo podium with bo staffs and the tricolour" },
+	{ img: "assets/img/New images/image 64.jpeg", caption: "The team with certificates and medals at the WKC ceremony" },
+	{ img: "assets/img/New images/image 65.jpeg", caption: "Boys' kumite podium — India gold, silver and bronze" },
+	{ img: "assets/img/New images/image 68.jpeg", caption: "The full championship delegation in front of the WKC backdrop" },
+	{ img: "assets/img/New images/image 69.jpeg", caption: "Over fifty medalists at the XVI WKC team photograph" },
+	{ img: "assets/img/New images/image 70.jpeg", caption: "Kumite podium — gold, silver and bronze with certificates" },
+	{ img: "assets/img/New images/image 71.jpeg", caption: "India silver and Kazakhstan bronze behind the Kyrgyz champion" },
+	{ img: "assets/img/New images/image 74.jpeg", caption: "Officials at the garlanded portrait of Hanchi Dr. S. Reithinam" },
+	{ img: "assets/img/New images/image 75.jpeg", caption: "Team photograph with medals and certificates at the XVI WKC" },
+	{ img: "assets/img/New images/image 76.jpeg", caption: "Girls' kumite podium with certificates and the tricolour" },
+	{ img: "assets/img/New images/image 77.jpeg", caption: "A medalist presented with her certificate by the officials" },
+	{ img: "assets/img/about/okinawa-kata-gate-4k.jpg", caption: "Karateka performing kata in front of a traditional red temple" },
+	{ img: "assets/img/New images/image 79.jpeg", caption: "Officials and competitors at the WKC Asian Karate Championship" },
+	{ img: "assets/img/New images/image 91.jpeg", caption: "The team with the trophy and officials at the Asian Karate Championship" },
+	{ img: "assets/img/New images/image 92.jpeg", caption: "The full squad in blazers at the dojo award ceremony" },
 ];
 
 /* --------------------------------------------------------------- CONTACT */
 
 export const contactHours = [
-	{ label: "Monday – Friday", value: "6:00 AM – 8:00 PM" },
+	{ label: "Monday – Friday · Morning", value: "7:30 AM – 9:30 AM" },
+	{ label: "Monday – Friday · Evening", value: "6:00 PM – 7:30 PM" },
+	{ label: "Monday – Friday · Late evening", value: "7:30 PM – 9:30 PM" },
 	{ label: "Saturday", value: "7:00 AM – 12:00 PM" },
 	{ label: "Sunday", value: "6:00 AM – 11:00 AM" },
 	{ label: "Public holidays", value: "Kata clinic only" },

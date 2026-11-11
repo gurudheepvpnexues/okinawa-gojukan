@@ -2,7 +2,7 @@ import { memo } from "react";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Band, Closing, Masthead, SecHead, Split } from "../sections/Primitives";
-import { Facts, Timeline, Values, Voices } from "../sections/Blocks";
+import { BranchMap, Branches, Facts, International, Timeline, Values, Voices } from "../sections/Blocks";
 import { aboutStory, aboutVoices } from "../sections/data";
 
 const AboutPage = () => {
@@ -30,23 +30,47 @@ const AboutPage = () => {
 							lede="The rule was simple and it still decides everything: train properly, or do not train at all."
 						/>
 						<Split
-							image={aboutStory.image}
-							alt="A karate practitioner performing kata inside the dojo"
-							tag={aboutStory.tag}
-							title={aboutStory.title}
-							lead={aboutStory.lead}
-							body={aboutStory.body}
-							points={aboutStory.points}
+								image={aboutStory.image}
+								srcSet={aboutStory.imageSrcSet}
+								sizes="(max-width: 991px) 100vw, 55vw"
+								alt="Hanshi Dr. S. C. Durai performing kata in front of the Shureimon gate in Okinawa"
+								aspect="3 / 4"
+								tag={aboutStory.tag}
+								title={aboutStory.title}
+								lead={aboutStory.lead}
+								body={aboutStory.body}
+								points={aboutStory.points}
 							cta={{ label: "See what we teach", to: "/programs" }}
 						/>
 					</div>
 				</section>
 
-				{/* 03 — Timeline */}
+				{/* 03 — International podiums */}
+				<section className="sec sec--tight">
+					<div className="container">
+						<International />
+					</div>
+				</section>
+
+				{/* 04 — Branches */}
 				<section className="sec sec--paper2">
 					<div className="container">
 						<SecHead
-							index="03"
+							index="04"
+							kicker="Where we teach"
+							title="Seven branches, one syllabus"
+							lede="The head dojo is in Yelahanka, Bangalore. Around it sit six branches and state networks — each teaching the same graded syllabus, held to the same standard, with nearly 1,200 students trained across all of them."
+						/>
+						<BranchMap />
+						<Branches />
+					</div>
+				</section>
+
+				{/* 05 — Timeline */}
+				<section className="sec">
+					<div className="container">
+						<SecHead
+							index="05"
 							kicker="The long version"
 							title="How the school grew"
 							lede="A short history of a slow, deliberate build. Every step below took longer than anyone expected."
@@ -55,11 +79,11 @@ const AboutPage = () => {
 					</div>
 				</section>
 
-				{/* 04 — Values */}
-				<section className="sec">
+				{/* 06 — Values */}
+				<section className="sec sec--paper2">
 					<div className="container">
 						<SecHead
-							index="04"
+							index="06"
 							kicker="What we hold to"
 							title="Four words on the wall of the dojo"
 							lede="They are not decoration. Every one of them is written into how a class is run and how a student is graded."
@@ -68,9 +92,9 @@ const AboutPage = () => {
 					</div>
 				</section>
 
-				{/* 05 — Band */}
+				{/* 07 — Band */}
 				<Band
-					index="05"
+					index="07"
 					image="assets/img/bg/about.jpg"
 					kicker="The instructors"
 					title="Defence-service discipline, in a small Yelahanka hall"
@@ -83,11 +107,11 @@ const AboutPage = () => {
 					action={{ label: "Train with us", to: "/contact" }}
 				/>
 
-				{/* 06 — Facts */}
+				{/* 08 — Facts */}
 				<section className="sec sec--paper2">
 					<div className="container">
 						<SecHead
-							index="06"
+							index="08"
 							kicker="At a glance"
 							title="The school in numbers"
 							lede="If you would rather read the facts than the story, they are here."
@@ -96,11 +120,11 @@ const AboutPage = () => {
 					</div>
 				</section>
 
-				{/* 07 — Voices */}
+				{/* 09 — Voices */}
 				<section className="sec">
 					<div className="container">
 						<SecHead
-							index="07"
+							index="09"
 							kicker="Voices"
 							title="What former students say"
 							lede="Written for us by people who have already left the belt behind them."

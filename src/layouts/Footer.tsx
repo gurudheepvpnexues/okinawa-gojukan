@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { dojo } from "../sections/data";
+import { dojo, aboutBranches } from "../sections/data";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -105,7 +105,7 @@ const Footer = () => {
                 <div className="footer_contact">
                   <p>
                     <i className="ph ph-map-pin-area"></i>
-                    <span>16/290, 24th Cross, Maruthi Nagar,<br />Yelahanka, Bangalore-64</span>
+                    <span>{dojo.address}</span>
                   </p>
                   <p>
                     <i className="ph ph-phone-call"></i>
@@ -118,6 +118,18 @@ const Footer = () => {
                     <span><a href={`mailto:${dojo.email}`}>{dojo.email}</a></span>
                   </p>
                 </div>
+                <h3 className="footer-title mt-4">Our Branches</h3>
+                <ul className="footer_branches">
+                  {aboutBranches.map((branch) => (
+                    <li
+                      key={branch.city}
+                      className={branch.head ? "footer_branches--head" : undefined}
+                    >
+                      <b>{branch.city}</b>
+                      <span>{branch.head ? "Yelahanka, Bangalore" : branch.place}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
 

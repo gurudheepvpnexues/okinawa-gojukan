@@ -1,21 +1,31 @@
 import { memo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { articles } from "../sections/articles";
 
 const popularPosts = [
 	{
-		img: "assets/img/blog/2.jpg",
-		title: "Why We Practise Kata Before Kumite",
-		date: "11 August, 2026",
+		img: "assets/img/gallery/okinawa-red-belt.jpg",
+		title: "Red Belt 10th Dan: awarded in Okinawa",
+		date: "09 November, 2026",
+		to: "/blog-details?post=tenth-dan-red-belt",
 	},
 	{
-		img: "assets/img/blog/5.jpg",
-		title: "Belt Gradings: How We Prepare Our Students",
-		date: "19 July, 2026",
+		img: "assets/img/New images/image 2.jpeg",
+		title: "Three golds in Bengaluru: inside the XVI WKC",
+		date: "02 November, 2026",
+		to: "/blog-details?post=world-championship-2026",
+	},
+	{
+		img: "assets/img/New images/image 63.jpeg",
+		title: "Bo staff and bronze: kobudo on the world stage",
+		date: "24 October, 2026",
+		to: "/blog-details?post=kobudo-world-stage",
 	},
 ];
 
 const categories = [
+	"Achievements",
 	"Training Tips",
 	"Techniques & Skills",
 	"Fitness & Conditioning",
@@ -88,6 +98,9 @@ const CommentItem = memo(({ comment }: { comment: Comment }) => (
 
 const BlogDetails = () => {
 	const [commentSent, setCommentSent] = useState(false);
+	const [params] = useSearchParams();
+	const slug = params.get("post") ?? "";
+	const article = articles[slug] ?? articles.discipline;
 
 	return (
 		<section className="sec">
@@ -101,59 +114,22 @@ const BlogDetails = () => {
 							transition={{ duration: 0.7 }}
 						>
 							<figure className="article__figure">
-								<img
-									src="assets/img/blog/blog-details.jpg"
-									alt="Karate students training conditioning drills in the dojo"
-								/>
-								<figcaption>Strength work before every technique session</figcaption>
+								<img src={article.hero.img} alt={article.hero.alt} />
+								<figcaption>{article.hero.caption}</figcaption>
 							</figure>
 
 							<div className="article__meta">
-								<span>18 August, 2026</span>
-								<span>8 min read</span>
+								<span>{article.date}</span>
+								<span>{article.read}</span>
 								<span className="d-flex align-items-center gap-2">
-									<img
-										src="assets/img/blog/avator/6.jpg"
-										alt=""
-										aria-hidden="true"
-									/>
-									Dojo Admin
+									<img src={article.avatar} alt="" aria-hidden="true" />
+									{article.author}
 								</span>
-								<span>Martial Arts Philosophy</span>
+								<span>{article.category}</span>
 							</div>
 
-							<h3>Martial Arts: A Journey of Discipline and Self-Discovery</h3>
-							<p>
-								Karate teaches far more than kicks and punches. A strong body
-								is only the first part of it — the second is a mind that can
-								hold a single point of attention through a long, unglamorous
-								afternoon. At our dojo every class opens with a bow, a warm-up
-								and simple strength work — squats, lunges, push-ups and balance
-								drills — that prepares the body for safe, effective training and
-								for the hour that follows it.
-							</p>
-							<p>
-								Progress matters more than intensity. Beginners should start
-								with two or three short sessions each week, gradually adding
-								repetitions as fitness improves. Planks and hip bridges build
-								the core power needed for crisp techniques, while stretching
-								after every session keeps muscles long and flexible. Good
-								nutrition, hydration and proper sleep complete the picture and
-								help young athletes recover faster.
-							</p>
-
-							<blockquote>
-								A black belt is simply a white belt who never stopped showing
-								up — steady, patient practice is the real secret to strength.
-							</blockquote>
-
-							<p>
-								Track your small wins: hold your stance a little longer,
-								complete one more set, keep your guard up through the final
-								round. Over weeks these efforts add up to visible progress in
-								class, on the mat and in everyday life. Train consistently, train
-								safely, and let strength grow one session at a time.
-							</p>
+							<h3>{article.title}</h3>
+							{article.body}
 						</motion.article>
 
 						{/* Comments */}
@@ -253,7 +229,7 @@ const BlogDetails = () => {
 						{popularPosts.map((post) => (
 							<Link
 								key={post.title}
-								to="/blog-details"
+								to={post.to}
 								className="d-flex gap-3 align-items-center py-2"
 								style={{
 									borderBottom: "1px solid rgba(255,255,255,.16)",

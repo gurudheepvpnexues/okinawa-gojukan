@@ -2,7 +2,7 @@ import { memo } from "react";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Closing, Masthead, SecHead } from "../sections/Primitives";
-import { Inquiry } from "../sections/Blocks";
+import { BranchAddresses, Inquiry } from "../sections/Blocks";
 import { dojo } from "../sections/data";
 
 const ContactPage = () => {
@@ -54,10 +54,23 @@ const ContactPage = () => {
 					</div>
 				</section>
 
+				{/* 04 — Branches */}
+				<section className="sec sec--tight">
+					<div className="container">
+						<SecHead
+							index="04"
+							kicker="Branches"
+							title="Seven dojos, one school"
+							lede="The head dojo is on Maruthi Nagar in Yelahanka. The branches below run the same graded syllabus, and any of them can book your trial class."
+						/>
+						<BranchAddresses />
+					</div>
+				</section>
+
 				<Closing
 					kicker="No forms needed"
 					title="Or simply call the dojo."
-					text={`Ring ${dojo.phone} between 6 AM and 8 PM and ask for a trial class. We will tell you honestly which session suits the student.`}
+					text={`Ring ${dojo.phone} between 7:30 AM and 9:30 PM and ask for a trial class. We will tell you honestly which session suits the student.`}
 					primary={{ label: `Call ${dojo.phone}`, to: "/contact" }}
 					secondary={{ label: "See class times", to: "/programs" }}
 				/>

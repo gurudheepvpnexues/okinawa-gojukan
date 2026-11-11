@@ -1,7 +1,19 @@
-import { memo, useEffect, useRef, useState, type FormEvent } from "react";
+import {
+	memo,
+	useEffect,
+	useRef,
+	useState,
+	type FormEvent,
+	type ReactNode,
+	type PointerEvent as ReactPointerEvent,
+} from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { SecHead } from "./Primitives";
+import { indiaPins } from "./maps";
+import { globeDots, globeShell, globePins } from "./globe";
 import {
+	aboutBranches,
 	aboutFacts,
 	aboutTimeline,
 	aboutValues,
@@ -14,6 +26,7 @@ import {
 	homeMarquee,
 	homeNumbers,
 	homePillars,
+	homePhotos,
 	homeVoices,
 	homeWeek,
 	beltLadder,
@@ -102,6 +115,369 @@ export const Values = memo(
 );
 
 Values.displayName = "Values";
+
+/* -------------------------------------------------------------- BRANCHES */
+
+export const Branches = memo(
+	({ items = aboutBranches }: { items?: typeof aboutBranches }) => (
+		<div className="branches">
+			{items.map((branch, index) => (
+				<motion.article
+					className={`branch${branch.head ? " branch--head" : ""}`}
+					key={branch.city}
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, amount: 0.3 }}
+					transition={{ duration: 0.65, delay: index * 0.08, ease }}
+				>
+					<span className="branch__no">
+						{String(index + 1).padStart(2, "0")}
+					</span>
+					<h3>{branch.city}</h3>
+					<span className="branch__place">{branch.place}</span>
+					<p>{branch.note}</p>
+					{branch.head && <span className="branch__tag">Head dojo</span>}
+				</motion.article>
+			))}
+		</div>
+	)
+);
+
+Branches.displayName = "Branches";
+
+/* ---------------------------------------------------------- INTERNATIONAL */
+
+export const International = memo(() => (
+	<div className="intl">
+		<div className="intl__head">
+			<span className="intl__label">International podiums</span>
+			<h3 className="intl__title">
+				Kazakhstan, Uzbekistan, Serbia and India
+			</h3>
+			<p className="intl__text">
+				The competition squad has podiumed outside India as well as at home —
+				three golds at the IMGC World Championship in Uzbekistan, world-level
+				finishes in Kazakhstan, and selection for the senior squad on the
+				Serbian international circuit.
+			</p>
+		</div>
+
+		<Globe />
+	</div>
+));
+International.displayName = "International";
+
+/* ------------------------------------------------------------- WORLD MAP */
+
+const MapPin = ({
+	pin,
+}: {
+	pin: {
+		id: string;
+		label: string;
+		sub?: string;
+		place: string;
+		x: number;
+		y: number;
+		side: string;
+		dy: number;
+		head?: boolean;
+		flip?: boolean;
+	};
+}) => (
+	<span
+		className={`wmap__pin${pin.head ? " wmap__pin--head" : ""}${
+			pin.flip ? " wmap__pin--flip" : ""
+		}`}
+		style={{ left: `${pin.x}%`, top: `calc(${pin.y}% + ${pin.dy}px)` }}
+	>
+		<i className="wmap__dot" aria-hidden="true" />
+		<span className={`wmap__label wmap__label--${pin.side}`}>
+			<b>{pin.label}</b>
+			{pin.sub && <em>{pin.sub}</em>}
+		</span>
+	</span>
+);
+
+MapPin.displayName = "MapPin";
+
+/**
+ * Flat, crisp branch map — the dotted artwork sits square to the viewer
+ * inside a lit panel, so every label stays perfectly readable.
+ */
+export const BranchMap = memo(() => (
+	<div className="panel">
+		<div className="panel__head">
+			<span className="panel__label">Branch map</span>
+			<span className="panel__hint">Move your cursor over the map</span>
+		</div>
+		<div className="panel__art">
+			<img
+				src="assets/img/about/india-map.svg"
+				alt="Map of India showing the seven dojo branches — Bangalore, Chennai, Durga, Udhampur, Maharashtra, Goa and Andhra Pradesh"
+			/>
+			{indiaPins.map((pin) => (
+				<MapPin key={pin.id} pin={pin} />
+			))}
+		</div>
+		<ul className="panel__legend">
+			{indiaPins.map((pin) => (
+				<li key={pin.id}>
+					<i className={pin.head ? "is-head" : undefined} aria-hidden="true" />
+					<b>{pin.label}</b>
+					<span>{pin.legend ?? pin.place}</span>
+				</li>
+			))}
+		</ul>
+	</div>
+));
+
+BranchMap.displayName = "BranchMap";
+/**
+ * 3D dot globe, painted on a canvas.
+ *
+ * Every dot is a real point on the sphere; the canvas rotates the sphere and
+ * projects the front hemisphere with perspective, so it renders identically in
+ * every browser (no thousands of 3D-transformed DOM nodes for the GPU to
+ * composite, which is what made the previous version go black).
+ */
+export const Globe = memo(() => {
+	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const stageRef = useRef<HTMLDivElement>(null);
+	const pausedRef = useRef(false);
+	const angleRef = useRef(-40);
+
+	useEffect(() => {
+		const canvas = canvasRef.current;
+		const ctx = canvas?.getContext("2d");
+		if (!canvas || !ctx) return;
+
+		const SIZE = 460;
+		const R = 172; // sphere radius in px
+		const F = 900; // perspective focal length
+		const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+		canvas.width = SIZE * dpr;
+		canvas.height = SIZE * dpr;
+		canvas.style.width = `${SIZE}px`;
+		canvas.style.height = `${SIZE}px`;
+		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+		const cx = SIZE / 2;
+		const cy = SIZE / 2;
+		const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+		let raf = 0;
+		let last = performance.now();
+
+		const project = (
+			x: number,
+			y: number,
+			z: number,
+			cos: number,
+			sin: number
+		) => {
+			const rx = x * cos + z * sin;
+			const rz = -x * sin + z * cos;
+			const zw = rz * R;
+			const scale = F / (F - zw);
+			return {
+				x: cx + rx * R * scale,
+				y: cy - y * R * scale,
+				z: zw,
+				scale,
+			};
+		};
+
+		const draw = (now: number) => {
+			const dt = Math.min(now - last, 64) / 1000;
+			last = now;
+
+			if (!reduce && !pausedRef.current) angleRef.current += dt * 9;
+			const a = (angleRef.current * Math.PI) / 180;
+			const cos = Math.cos(a);
+			const sin = Math.sin(a);
+
+			ctx.clearRect(0, 0, SIZE, SIZE);
+
+			// --- faint sphere shell ---------------------------------------
+			ctx.fillStyle = "rgba(255,255,255,.08)";
+			for (const dot of globeShell) {
+				const p = project(dot.x, dot.y, dot.z, cos, sin);
+				if (p.z < 0) continue;
+				const r = 1.3 * p.scale;
+				ctx.fillRect(p.x - r, p.y - r, r * 2, r * 2);
+			}
+
+			// --- land dots -------------------------------------------------
+			for (const dot of globeDots) {
+				const p = project(dot.x, dot.y, dot.z, cos, sin);
+				if (p.z < -6) continue;
+				const edge = Math.max(0, Math.min(1, (p.z + 18) / 46));
+				const alpha = 0.3 + 0.7 * edge;
+				const r = (dot.hot ? 2.4 : 1.7) * p.scale;
+
+				if (dot.hot) {
+					ctx.fillStyle = `rgba(255,42,28,${alpha})`;
+				} else {
+					ctx.fillStyle = `rgba(255,255,255,${alpha * 0.92})`;
+				}
+				ctx.beginPath();
+				ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+				ctx.fill();
+
+				if (dot.hot) {
+					ctx.fillStyle = `rgba(255,42,28,${alpha * 0.16})`;
+					ctx.beginPath();
+					ctx.arc(p.x, p.y, r * 2.6, 0, Math.PI * 2);
+					ctx.fill();
+				}
+			}
+
+			// --- pins -------------------------------------------------------
+			for (const pin of globePins) {
+				const p = project(pin.x, pin.y, pin.z, cos, sin);
+				if (p.z < 4) continue;
+
+				const r = 6 * p.scale;
+				const isHead = pin.id === "india";
+
+				ctx.beginPath();
+				ctx.arc(p.x, p.y, r + 5, 0, Math.PI * 2);
+				ctx.fillStyle = isHead ? "rgba(225,6,0,.22)" : "rgba(225,6,0,.16)";
+				ctx.fill();
+
+				ctx.beginPath();
+				ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+				ctx.fillStyle = isHead ? "#ff3b2f" : "#e10600";
+				ctx.fill();
+				ctx.lineWidth = 1.6;
+				ctx.strokeStyle = "#fff";
+				ctx.stroke();
+
+				// label, billboarded so it always faces the reader
+				const text = pin.label.toUpperCase();
+				ctx.font = "700 11px Lato, system-ui, sans-serif";
+				const tw = ctx.measureText(text).width;
+				const padX = 8;
+				const boxW = tw + padX * 2;
+				const boxH = 21;
+
+				let bx = p.x + 13;
+				if (pin.side === "left") bx = p.x - 13 - boxW;
+				let by = p.y - boxH / 2 + pin.dy;
+
+				// keep the label inside the canvas
+				bx = Math.max(4, Math.min(SIZE - boxW - 4, bx));
+				by = Math.max(4, Math.min(SIZE - boxH - 4, by));
+
+				ctx.fillStyle = "rgba(8,8,8,.92)";
+				ctx.strokeStyle = "rgba(225,6,0,.55)";
+				ctx.lineWidth = 1;
+				ctx.beginPath();
+				ctx.rect(bx, by, boxW, boxH);
+				ctx.fill();
+				ctx.stroke();
+
+				ctx.fillStyle = "#fff";
+				ctx.textBaseline = "middle";
+				ctx.fillText(text, bx + padX, by + boxH / 2 + 0.5);
+			}
+
+			// --- sphere shading ---------------------------------------------
+			const shade = ctx.createRadialGradient(
+				cx - R * 0.32,
+				cy - R * 0.34,
+				R * 0.1,
+				cx,
+				cy,
+				R * 1.06
+			);
+			shade.addColorStop(0, "rgba(255,255,255,.05)");
+			shade.addColorStop(0.55, "rgba(0,0,0,0)");
+			shade.addColorStop(0.86, "rgba(0,0,0,.42)");
+			shade.addColorStop(1, "rgba(0,0,0,.7)");
+			ctx.fillStyle = shade;
+			ctx.beginPath();
+			ctx.arc(cx, cy, R * 1.02, 0, Math.PI * 2);
+			ctx.fill();
+
+			raf = requestAnimationFrame(draw);
+		};
+
+		raf = requestAnimationFrame(draw);
+
+		const onEnter = () => {
+			pausedRef.current = true;
+		};
+		const onLeave = () => {
+			pausedRef.current = false;
+		};
+		const stage = stageRef.current;
+		stage?.addEventListener("mouseenter", onEnter);
+		stage?.addEventListener("mouseleave", onLeave);
+
+		return () => {
+			cancelAnimationFrame(raf);
+			stage?.removeEventListener("mouseenter", onEnter);
+			stage?.removeEventListener("mouseleave", onLeave);
+		};
+	}, []);
+
+	return (
+		<div className="globe">
+			<div className="globe__stage" ref={stageRef}>
+				<canvas
+					ref={canvasRef}
+					className="globe__canvas"
+					role="img"
+					aria-label="Rotating globe marking the countries where the dojo has podiumed — Kazakhstan, Uzbekistan, Serbia and India"
+				/>
+			</div>
+			<div className="globe__caption">
+				<ul className="globe__legend">
+					{globePins.map((pin) => (
+						<li key={pin.id}>
+							<i aria-hidden="true" />
+							<b>{pin.label}</b>
+							<span>{pin.sub}</span>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+	);
+});
+
+Globe.displayName = "Globe";
+Globe.displayName = "Globe";
+
+/* ------------------------------------------------------- BRANCH ADDRESSES */
+
+export const BranchAddresses = memo(
+	({ items = aboutBranches }: { items?: typeof aboutBranches }) => (
+		<ul className="addr-list">
+			{items.map((branch, index) => (
+				<motion.li
+					className={`addr${branch.head ? " addr--head" : ""}`}
+					key={branch.city}
+					initial={{ opacity: 0, y: 24 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, amount: 0.3 }}
+					transition={{ duration: 0.6, delay: index * 0.07, ease }}
+				>
+					<span className="addr__city">{branch.city}</span>
+					<span className="addr__place">
+						{branch.head ? dojo.address : branch.place}
+					</span>
+					{branch.head && <span className="addr__tag">Head dojo</span>}
+				</motion.li>
+			))}
+		</ul>
+	)
+);
+
+BranchAddresses.displayName = "BranchAddresses";
 
 /* ----------------------------------------------------------- BELT LADDER */
 
@@ -411,6 +787,168 @@ export const Numbers = memo(
 
 Numbers.displayName = "Numbers";
 
+/* ---------------------------------------------------------- PHOTO STRIP */
+
+export const PhotoStrip = memo(
+	({
+		items = homePhotos,
+		kicker = "In pictures",
+		title = (
+			<>
+				Where the training <em>takes you</em>
+			</>
+		),
+		lede = "Podiums, officials' tables and long days on the road — championship photographs from Bengaluru to Central Asia.",
+		label = "Championship photographs",
+		direction = 1,
+	}: {
+		items?: (typeof homePhotos)[number][];
+		kicker?: string;
+		title?: ReactNode;
+		lede?: string;
+		label?: string;
+		/** 1 = photos drift right → left, -1 = left → right */
+		direction?: 1 | -1;
+	}) => {
+		const marqueeRef = useRef<HTMLDivElement>(null);
+		const pendingRef = useRef(0); // signed px left to animate; 0 = idle
+		const resumeAtRef = useRef(0);
+		const holdRef = useRef(false);
+
+		/* auto-scroll in `direction`; arrow nudges animate through the same loop */
+		useEffect(() => {
+			const el = marqueeRef.current;
+			if (!el) return;
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+			const speed = 65; // px per second
+			let raf = 0;
+			let last = performance.now();
+
+			const tick = (now: number) => {
+				const dt = Math.min(now - last, 64) / 1000;
+				last = now;
+
+				// the track holds two identical copies of the list
+				const half = el.scrollWidth / 2;
+				// wrap into one copy *before* writing, so the browser never
+				// clamps a negative scrollLeft back to 0 (which would stall it)
+				const setScroll = (pos: number) => {
+					if (half > 0) {
+						while (pos > half) pos -= half;
+						while (pos < 0) pos += half;
+					}
+					el.scrollLeft = pos;
+				};
+
+				const pending = pendingRef.current;
+				if (pending !== 0) {
+					// ease toward the arrow-nudge target, then hold for a beat
+					let step = pending * Math.min(1, dt * 9);
+					if (Math.abs(step) > Math.abs(pending)) step = pending;
+					setScroll(el.scrollLeft + step);
+					pendingRef.current = pending - step;
+					if (Math.abs(pendingRef.current) < 1) {
+						pendingRef.current = 0;
+						resumeAtRef.current = now + 700;
+					}
+				} else if (!holdRef.current && now >= resumeAtRef.current) {
+					setScroll(el.scrollLeft + speed * dt * direction);
+				}
+
+				raf = requestAnimationFrame(tick);
+			};
+
+			raf = requestAnimationFrame(tick);
+			return () => cancelAnimationFrame(raf);
+		}, [direction]);
+
+		const nudge = (dir: number) => {
+			const el = marqueeRef.current;
+			if (!el) return;
+			const img = el.querySelector<HTMLElement>(".photo-strip__img");
+			const step = (img ? img.offsetWidth : Math.round(el.clientWidth * 0.4)) + 16;
+			const half = el.scrollWidth / 2;
+
+			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				let pos = el.scrollLeft + dir * step;
+				if (half > 0) {
+					while (pos > half) pos -= half;
+					while (pos < 0) pos += half;
+				}
+				el.scrollLeft = pos;
+				return;
+			}
+
+			// the rAF loop animates this delta and wraps the view seamlessly
+			pendingRef.current += dir * step;
+		};
+
+		return (
+			<section
+				className="sec sec--tight photo-strip"
+				aria-label={label}
+				onMouseEnter={() => (holdRef.current = true)}
+				onMouseLeave={() => {
+					holdRef.current = false;
+					resumeAtRef.current = performance.now() + 300;
+				}}
+				onTouchStart={() => (holdRef.current = true)}
+				onTouchEnd={() => {
+					holdRef.current = false;
+					resumeAtRef.current = performance.now() + 1500;
+				}}
+				onTouchCancel={() => {
+					holdRef.current = false;
+					resumeAtRef.current = performance.now() + 1500;
+				}}
+			>
+				<div className="container">
+					<SecHead kicker={kicker} title={title} lede={lede} />
+				</div>
+
+				<div className="photo-strip__frame">
+					<div className="photo-strip__marquee" ref={marqueeRef}>
+						<div className="photo-strip__track">
+							{[...items, ...items].map((photo, index) => (
+								<img
+									className="photo-strip__img"
+									key={`${photo.src}-${index}`}
+									src={photo.src}
+									alt={index < items.length ? photo.alt : ""}
+									width={photo.w}
+									height={photo.h}
+									loading="lazy"
+									draggable={false}
+								/>
+							))}
+						</div>
+					</div>
+
+					<button
+						type="button"
+						className="photo-strip__btn photo-strip__btn--prev"
+						aria-label="Show previous photos"
+						onClick={() => nudge(-direction)}
+					>
+						<i className="ph ph-arrow-left" aria-hidden="true"></i>
+					</button>
+					<button
+						type="button"
+						className="photo-strip__btn photo-strip__btn--next"
+						aria-label="Show next photos"
+						onClick={() => nudge(direction)}
+					>
+						<i className="ph ph-arrow-right" aria-hidden="true"></i>
+					</button>
+				</div>
+			</section>
+		);
+	}
+);
+
+PhotoStrip.displayName = "PhotoStrip";
+
 /* ----------------------------------------------------------- INSTRUCTORS */
 
 export const Instructors = memo(
@@ -451,7 +989,7 @@ export const Journal = memo(() => (
 		{homeJournal.map((post) => (
 			<Link
 				key={post.title}
-				to="/blog-details"
+				to={`/blog-details${post.slug ? `?post=${post.slug}` : ""}`}
 				className="ledger__row ledger__row--journal"
 			>
 				<span className="ledger__num">{post.date}</span>
@@ -535,26 +1073,33 @@ export const Posts = memo(() => {
 					{visible.map((post, index) => (
 						<motion.article
 							className="post"
-							key={post.title}
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true, amount: 0.2 }}
 							transition={{ duration: 0.6, delay: index * 0.1, ease }}
 						>
-							<Link to="/blog-details" className="post__img">
-								<img src={post.img} alt={post.title} loading="lazy" />
+						<Link
+							to={`/blog-details${post.slug ? `?post=${post.slug}` : ""}`}
+							className="post__img"
+						>
+							<img src={post.img} alt={post.title} loading="lazy" />
+						</Link>
+						<div className="post__meta">
+							<span>{post.date}</span>
+							<span>{post.author}</span>
+						</div>
+						<h3>
+							<Link to={`/blog-details${post.slug ? `?post=${post.slug}` : ""}`}>
+								{post.title}
 							</Link>
-							<div className="post__meta">
-								<span>{post.date}</span>
-								<span>{post.author}</span>
-							</div>
-							<h3>
-								<Link to="/blog-details">{post.title}</Link>
-							</h3>
-							<p>{post.desc}</p>
-							<Link to="/blog-details" className="arrow-link">
-								Read <i className="ph ph-arrow-right"></i>
-							</Link>
+						</h3>
+						<p>{post.desc}</p>
+						<Link
+							to={`/blog-details${post.slug ? `?post=${post.slug}` : ""}`}
+							className="arrow-link"
+						>
+							Read <i className="ph ph-arrow-right"></i>
+						</Link>
 						</motion.article>
 					))}
 				</div>
