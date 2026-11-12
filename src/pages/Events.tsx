@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Closing, Masthead, SecHead, Split } from "../sections/Primitives";
-import { Chambers, EventLedger } from "../sections/Blocks";
+import { Chambers, EventLedger, SessionCards } from "../sections/Blocks";
 import { eventFeature } from "../sections/data";
 
 const EventsPage = () => {
@@ -17,7 +17,7 @@ const EventsPage = () => {
 					kicker="Calendar"
 					title="The season, on the mat"
 					lede="Championships, open cups and grading days. Our own championship opens the season, followed by the fixtures the squad travels to."
-					background="assets/img/banner/events.jpg"
+					background="assets/img/banner/events.jpg?v=20261112d"
 					crumbs={[{ label: "Events" }]}
 				/>
 
@@ -52,11 +52,29 @@ const EventsPage = () => {
 					</div>
 				</section>
 
-				{/* 03 — Calendar */}
-				<section className="sec sec--paper2">
+				{/* 03 — Latest sessions */}
+				<section className="sec sec--grid">
 					<div className="container">
 						<SecHead
 							index="03"
+							kicker="Latest sessions"
+							title="New sessions on the timetable"
+							lede="The classes added to the timetable this season. Each one is open to new students, and the first session of any of them is free."
+							action={
+								<Link to="/contact" className="arrow-link">
+									Book a place <i className="ph ph-arrow-right"></i>
+								</Link>
+							}
+						/>
+						<SessionCards />
+					</div>
+				</section>
+
+				{/* 04 — Calendar */}
+				<section className="sec sec--paper2">
+					<div className="container">
+						<SecHead
+							index="04"
 							kicker="Full calendar"
 							title="Eight dates, August to December"
 							lede="Dates are fixed a season in advance. Entries for our own championship close two weeks before the event; for the external tournaments, entries close with the organisers."
@@ -65,11 +83,11 @@ const EventsPage = () => {
 					</div>
 				</section>
 
-				{/* 04 — Divisions */}
+				{/* 05 — Divisions */}
 				<section className="sec">
 					<div className="container">
 						<SecHead
-							index="04"
+							index="05"
 							kicker="Divisions"
 							title="What happens on the day"
 							lede="Five divisions run at every championship, judged on the same rules our students are taught."

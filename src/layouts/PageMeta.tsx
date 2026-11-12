@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useLang } from "../i18n";
 
 const siteName = "Okinawa Gojukan Karate-Do Training School";
 
@@ -73,14 +74,15 @@ const meta: Record<string, { title: string; description: string }> = {
 
 const PageMeta = () => {
 	const { pathname } = useLocation();
+	const { lang, t } = useLang();
 
 	useEffect(() => {
 		const entry = meta[pathname];
-		document.title = entry ? entry.title : "Page not found | " + siteName;
+		document.title = entry ? t(entry.title) : "Page not found | " + siteName;
 
 		const tag = document.querySelector('meta[name="description"]');
-		if (tag && entry) tag.setAttribute("content", entry.description);
-	}, [pathname]);
+		if (tag && entry) tag.setAttribute("content", t(entry.description));
+	}, [pathname, lang, t]);
 
 	return null;
 };

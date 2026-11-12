@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { SecHead } from "./Primitives";
+import { IndiaMap3D } from "./IndiaMap";
 import { indiaPins } from "./maps";
 import { globeDots, globeShell, globePins } from "./globe";
 import {
@@ -20,6 +21,7 @@ import {
 	blogPosts,
 	eventChambers,
 	eventLedger,
+	eventSessions,
 	galleryItems,
 	homeInstructors,
 	homeJournal,
@@ -74,7 +76,7 @@ export const Timeline = memo(
 			{items.map((entry, index) => (
 				<motion.div
 					className="timeline__item"
-					key={entry.year}
+					key={`${entry.year}-${entry.title}`}
 					initial={{ opacity: 0, x: -22 }}
 					whileInView={{ opacity: 1, x: 0 }}
 					viewport={{ once: true, amount: 0.4 }}
@@ -169,38 +171,6 @@ International.displayName = "International";
 
 /* ------------------------------------------------------------- WORLD MAP */
 
-const MapPin = ({
-	pin,
-}: {
-	pin: {
-		id: string;
-		label: string;
-		sub?: string;
-		place: string;
-		x: number;
-		y: number;
-		side: string;
-		dy: number;
-		head?: boolean;
-		flip?: boolean;
-	};
-}) => (
-	<span
-		className={`wmap__pin${pin.head ? " wmap__pin--head" : ""}${
-			pin.flip ? " wmap__pin--flip" : ""
-		}`}
-		style={{ left: `${pin.x}%`, top: `calc(${pin.y}% + ${pin.dy}px)` }}
-	>
-		<i className="wmap__dot" aria-hidden="true" />
-		<span className={`wmap__label wmap__label--${pin.side}`}>
-			<b>{pin.label}</b>
-			{pin.sub && <em>{pin.sub}</em>}
-		</span>
-	</span>
-);
-
-MapPin.displayName = "MapPin";
-
 /**
  * Flat, crisp branch map — the dotted artwork sits square to the viewer
  * inside a lit panel, so every label stays perfectly readable.
@@ -212,13 +182,7 @@ export const BranchMap = memo(() => (
 			<span className="panel__hint">Move your cursor over the map</span>
 		</div>
 		<div className="panel__art">
-			<img
-				src="assets/img/about/india-map.svg"
-				alt="Map of India showing the seven dojo branches — Bangalore, Chennai, Durga, Udhampur, Maharashtra, Goa and Andhra Pradesh"
-			/>
-			{indiaPins.map((pin) => (
-				<MapPin key={pin.id} pin={pin} />
-			))}
+			<IndiaMap3D />
 		</div>
 		<ul className="panel__legend">
 			{indiaPins.map((pin) => (
@@ -481,6 +445,27 @@ BranchAddresses.displayName = "BranchAddresses";
 
 /* ----------------------------------------------------------- BELT LADDER */
 
+/* One belt: the artwork lifted straight out of the reference infographic
+   ("Karate Belt Rankings Infographic"), so the knot, folds, stitching and
+   fan of the two ends match the original exactly. WebP with a PNG fallback. */
+const BeltGraphic = memo(({ img }: { img: string }) => (
+	<picture>
+		<source srcSet={`${img}.webp`} type="image/webp" />
+		<img
+			className="belt"
+			src={`${img}.png`}
+			alt=""
+			aria-hidden="true"
+			width={236}
+			height={424}
+			loading="lazy"
+			decoding="async"
+		/>
+	</picture>
+));
+
+BeltGraphic.displayName = "BeltGraphic";
+
 export const BeltLadder = memo(
 	({ items = beltLadder }: { items?: typeof beltLadder }) => (
 		<div className="ladder">
@@ -493,11 +478,11 @@ export const BeltLadder = memo(
 					viewport={{ once: true, amount: 0.3 }}
 					transition={{ duration: 0.55, delay: index * 0.07, ease }}
 				>
-					<div
-						className="ladder__bar"
-						style={{ backgroundColor: step.color }}
-					></div>
+					<div className="ladder__bar" aria-hidden="true">
+						<BeltGraphic img={step.img} />
+					</div>
 					<div className="ladder__label">{step.name}</div>
+					<div className="ladder__kyu">{step.kyu}</div>
 					<div className="ladder__yrs">{step.years}</div>
 				</motion.div>
 			))}
@@ -1050,6 +1035,37 @@ export const Chambers = memo(
 );
 
 Chambers.displayName = "Chambers";
+
+/* -------------------------------------------------------------- SESSIONS */
+
+export const SessionCards = memo(
+	({ items = eventSessions }: { items?: typeof eventSessions }) => (
+		<div className="sessions">
+			{items.map((session, index) => (
+				<motion.article
+					className="session"
+					key={session.title}
+					initial={{ opacity: 0, y: 28 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, amount: 0.2 }}
+					transition={{ duration: 0.6, delay: index * 0.08, ease }}
+				>
+					<div className="session__media">
+						<img src={session.img} alt={session.title} loading="lazy" />
+						<span className="session__tag">{session.tag}</span>
+					</div>
+					<div className="session__body">
+						<span className="session__meta">{session.meta}</span>
+						<h3>{session.title}</h3>
+						<p>{session.text}</p>
+					</div>
+				</motion.article>
+			))}
+		</div>
+	)
+);
+
+SessionCards.displayName = "SessionCards";
 
 /* ----------------------------------------------------------------- POSTS */
 

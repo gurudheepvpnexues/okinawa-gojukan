@@ -496,7 +496,7 @@ export const programChapters = [
 		no: "02",
 		title: "Graded Karate-Do",
 		lead: "The full syllabus for students who want to be examined. Belt grading every quarter, kata tested before kumite.",
-		points: ["Complete syllabus across nine belts", "Quarterly graded examinations", "Technical correction every session"],
+		points: ["Complete syllabus across eight belts", "Quarterly graded examinations", "Technical correction every session"],
 	},
 	{
 		no: "03",
@@ -513,15 +513,14 @@ export const programChapters = [
 ];
 
 export const beltLadder = [
-	{ name: "White", years: "0-3 months", color: "#f3f2ee" },
-	{ name: "Yellow", years: "3-6 months", color: "#f2c10d" },
-	{ name: "Orange", years: "6-10 months", color: "#e2711d" },
-	{ name: "Green", years: "10-14 months", color: "#1f7a3d" },
-	{ name: "Blue", years: "14-20 months", color: "#1c4e9c" },
-	{ name: "Purple", years: "20-26 months", color: "#5b2d8e" },
-	{ name: "Brown", years: "26-34 months", color: "#6b4423" },
-	{ name: "Red", years: "34-44 months", color: "#c1121f" },
-	{ name: "Black", years: "3 years +", color: "#141414" },
+	{ name: "White", kyu: "9th Kyu", years: "0-3 months", color: "#ffffff", img: "assets/img/belts/white" },
+	{ name: "Yellow", kyu: "8th Kyu", years: "3-6 months", color: "#f2c200", img: "assets/img/belts/yellow" },
+	{ name: "Orange", kyu: "7th Kyu", years: "6-10 months", color: "#ef6c00", img: "assets/img/belts/orange" },
+	{ name: "Green", kyu: "6th Kyu", years: "10-14 months", color: "#0e7a3d", img: "assets/img/belts/green" },
+	{ name: "Blue", kyu: "5th Kyu", years: "14-20 months", color: "#1d4ed8", img: "assets/img/belts/blue" },
+	{ name: "Purple", kyu: "4th Kyu", years: "20-26 months", color: "#6d28d9", img: "assets/img/belts/purple" },
+	{ name: "Brown", kyu: "3rd Kyu", years: "26-34 months", color: "#5a3a22", img: "assets/img/belts/brown" },
+	{ name: "Black", kyu: "1st Dan", years: "3 years +", color: "#0b0b0b", img: "assets/img/belts/black" },
 ];
 
 export const programEnrol = [
@@ -548,7 +547,7 @@ export const programEnrol = [
 /* ---------------------------------------------------------------- EVENTS */
 
 export const eventFeature = {
-	image: "assets/img/programs/4-kumite.jpg",
+	image: "assets/img/events/feature-championship.jpg",
 	tag: "Season opener",
 	title: "Spirit of the Dojo — Karate Championship",
 	date: "Sat, 22 August 2026 · 10:00 AM",
@@ -568,11 +567,44 @@ export const eventLedger = [
 ];
 
 export const eventChambers = [
-	{ img: "assets/img/events/2.jpg", name: "Kata Division", note: "Judged forms" },
-	{ img: "assets/img/events/3.jpg", name: "Kumite Division", note: "Graded rounds" },
-	{ img: "assets/img/events/4.jpg", name: "Team Kata", note: "Four-member" },
-	{ img: "assets/img/events/5.jpg", name: "Skills Demo", note: "Open display" },
-	{ img: "assets/img/events/6.jpg", name: "Awards Hall", note: "Prize ceremony" },
+	{ img: "assets/img/events/division-kata.jpg", name: "Kata Division", note: "Judged forms" },
+	{ img: "assets/img/events/division-kumite.jpg", name: "Kumite Division", note: "Graded rounds" },
+	{ img: "assets/img/events/division-team.jpg", name: "Team Kata", note: "Four-member" },
+	{ img: "assets/img/events/division-demo.jpg", name: "Skills Demo", note: "Open display" },
+	{ img: "assets/img/events/division-awards.jpg", name: "Awards Hall", note: "Prize ceremony" },
+];
+
+/* The newest additions to the timetable, shown as the latest entries on the
+   events page. Every photograph comes from the New images folder. */
+export const eventSessions = [
+	{
+		img: "assets/img/events/session-kobudo.jpg",
+		tag: "New this season",
+		title: "Kobudo — Bo Staff Session",
+		meta: "Tuesday & Friday · 5:00 PM",
+		text: "A new evening session on the traditional weapons. Bo staff and jo are taught from the first step, with free sparring held back until the forms are clean.",
+	},
+	{
+		img: "assets/img/events/session-kids.jpg",
+		tag: "New batch",
+		title: "Kids Karate — Afternoon Session",
+		meta: "Monday, Wednesday & Friday · 4:30 PM",
+		text: "A fresh afternoon group for children aged five to eleven. Games first, then the first three kihon drills, with parents watching from the side of the mat.",
+	},
+	{
+		img: "assets/img/events/session-junior.jpg",
+		tag: "New grading cycle",
+		title: "Junior Kumite Squad — Evening Training",
+		meta: "Monday & Thursday · 6:30 PM",
+		text: "Graded sparring for students who hold a belt of green or above, working on distance, timing and the three-step entry. Grading happens at the end of the cycle.",
+	},
+	{
+		img: "assets/img/events/session-grading.jpg",
+		tag: "Monthly",
+		title: "Grading & Belt Ceremony",
+		meta: "Last Sunday of the month · 9:00 AM",
+		text: "The monthly grading floor. Instructors watch a full kihon set, a kata and a round of kumite before the belt is tied, with family and tea afterwards in the hall.",
+	},
 ];
 
 /* ------------------------------------------------------------------ BLOG */

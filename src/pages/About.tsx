@@ -16,7 +16,7 @@ const AboutPage = () => {
 					kicker="About the school"
 					title="Twenty-three years on the same mat"
 					lede="Okinawa Gojukan Karate-Do has taught karate-do in Yelahanka since 2003. The building has changed twice; the method has not changed at all."
-					background="assets/img/banner/about.jpg"
+					background="assets/img/banner/about.jpg?v=20261112d"
 					crumbs={[{ label: "About" }]}
 				/>
 

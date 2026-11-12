@@ -14,7 +14,7 @@ const ProgramDetailsPage = () => {
 					kicker="Programme detail"
 					title="How a student actually progresses"
 					lede="The syllabus behind every belt: what is taught, in what order, and what you are expected to be able to do by the time you are called to the grading floor."
-					background="assets/img/banner/program-details.jpg"
+					background="assets/img/banner/program-details.jpg?v=20261112d"
 					crumbs={[{ label: "Programs" }, { label: "Detail" }]}
 				/>
 				<ProgramDetails />

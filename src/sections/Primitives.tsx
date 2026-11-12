@@ -270,6 +270,13 @@ export const Masthead = memo(
 							{index} — {kicker}
 						</motion.div>
 						<motion.h1
+							className={`masthead__title${
+								title.length >= 42
+									? " masthead__title--xs"
+									: title.length >= 32
+										? " masthead__title--long"
+										: ""
+							}`}
 							initial={{ opacity: 0, y: 26 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.85, delay: 0.16, ease }}

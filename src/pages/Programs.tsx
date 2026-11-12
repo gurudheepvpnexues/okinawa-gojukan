@@ -17,7 +17,7 @@ const ProgramsPage = () => {
 					kicker="Programmes"
 					title="Four tracks, one syllabus"
 					lede="Wherever you start, the sequence is the same: kihon, then kata, then kumite, then the grading hall. The tracks below differ only in pace and focus."
-					background="assets/img/banner/programs.jpg"
+					background="assets/img/banner/programs.jpg?v=20261112f"
 					crumbs={[{ label: "Programs" }]}
 				/>
 
@@ -45,7 +45,7 @@ const ProgramsPage = () => {
 						<SecHead
 							index="03"
 							kicker="The ladder"
-							title="Nine belts, and nobody gets one for free"
+							title="Eight belts, and nobody gets one for free"
 							lede="Belt gradings are held every quarter. The times below are the honest average for a student who trains two or three times a week."
 						/>
 						<BeltLadder />

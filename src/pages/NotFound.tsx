@@ -12,7 +12,7 @@ const NotFound = () => {
 				<section
 					className="nf"
 					style={{
-						backgroundImage: "url(assets/img/banner/404.jpg)",
+						backgroundImage: "url(assets/img/banner/404.jpg?v=20261112d)",
 						backgroundSize: "cover",
 						backgroundPosition: "center",
 					}}

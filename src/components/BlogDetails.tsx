@@ -129,7 +129,7 @@ const BlogDetails = () => {
 							</div>
 
 							<h3>{article.title}</h3>
-							{article.body}
+							{article.body()}
 						</motion.article>
 
 						{/* Comments */}

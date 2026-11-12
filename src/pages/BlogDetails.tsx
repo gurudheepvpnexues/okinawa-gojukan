@@ -19,7 +19,7 @@ const BlogDetailsPage = () => {
 					kicker={article.category}
 					title={article.title}
 					lede={article.standfirst}
-					background="assets/img/banner/blog-details.jpg"
+					background="assets/img/banner/blog-details.jpg?v=20261112d"
 					crumbs={[{ label: "Journal" }, { label: article.category }]}
 				/>
 				<BlogDetails />

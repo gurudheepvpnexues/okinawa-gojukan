@@ -1,0 +1,150 @@
+/* Responsive Styles Laptop/ Desktop (Up to 1400px) */
+
+
+/* Responsive Styles for Tablet (Up to 1440px) */
+@media only screen and (max-width: 1440px) {
+	#tr_header::after {
+		width: 100%;
+	}
+}
+
+/* Responsive Styles Laptop/ Desktop (Up to 1366px) */
+@media only screen and (max-width: 1366px) {
+ 
+}
+
+/* Responsive Styles for Tablet (Up to 1280px) */
+@media only screen and (max-width: 1280px) {
+	
+}
+
+/* Responsive Styles for Tablet (Up to 1199px) */
+@media only screen and (max-width: 1199px) {
+	.main-menu{
+		display: none;
+	}
+	.slider_item h1.heading {
+		font-size: 47px;
+		line-height: 62px;
+	}
+	.slider_image {
+		width: 52%;
+	}
+	.vbtn {
+		left: 30%;
+	}
+
+	.blog_img {
+		margin-bottom: 15px;
+	}
+}
+
+/* Responsive Styles for Tablet and Mobile (Up to 1024px) */
+@media only screen and (max-width: 1024px) {
+  .harrows{
+	display: none;
+  }
+  .slider_image{
+	display: none;
+  }
+  
+}
+
+/* For screens 991px */
+@media only screen and (max-width: 991px) {
+	.program-image img{
+		width: 100%;
+	}
+	.pricing_item h3,
+	.pricing_item ul,
+	.pricing_item .price {
+		margin-bottom: 15px;
+	}
+	.pricing_item ul{
+		padding-left: 35px;
+	}
+	.testimonial_item p {
+		width: 86%;
+	}
+	.event_img{
+		width: 150px;
+  		height: 150px;
+	}
+	.event_img::before {
+		width: 175px;
+		height: 175px;
+	}
+	.counter_item{
+		border: inherit;
+		padding: 10px;
+	}
+	.counter_item h3 {
+		font-size: 30px;
+	}
+	.counterup_inner{
+		padding-bottom: 25px;
+	}
+
+	
+
+}
+
+/* For screens 768px */
+@media only screen and (max-width: 768px){
+	
+	.event_slider{
+	}
+	.counterup_inner{
+		margin: 0 15px;
+	}
+}
+
+/* For screens 534px */
+@media (max-width: 534px) {
+	.pricing_item ul {
+		display: block;
+		line-height: 33px;
+	}
+}
+/* For screens 480px */
+@media (max-width: 480px) {
+
+}
+
+/* ===== Brand Lockup (Okinawa Gojukan) Responsive ===== */
+@media only screen and (max-width: 1199px) {
+	.brand_badge{ width: 46px; height: 46px; }
+	.brand_kn{ font-size: 10px; }
+	.brand_en{ font-size: 11.5px; }
+	.brand--lg .brand_badge{ width: 64px; height: 64px; }
+	.brand--lg .brand_kn{ font-size: 12px; }
+	.brand--lg .brand_en{ font-size: 15px; }
+}
+@media only screen and (max-width: 767px) {
+	.brand_link{ gap: 9px; }
+	.brand_badge{ width: 40px; height: 40px; }
+	.brand_kn{ font-size: 9px; white-space: normal; }
+	.brand_en{ font-size: 10.5px; white-space: normal; line-height: 1.25; }
+	.brand--lg .brand_badge{ width: 56px; height: 56px; }
+	.brand--lg .brand_kn{ font-size: 11px; }
+	.brand--lg .brand_en{ font-size: 13.5px; }
+	.slider_kicker{ font-size: 15px; }
+	.section-heading h2{ font-size: 26px; }
+	.section-heading p{ font-size: 15.5px; }
+}
+
+/* ===== Photo Gallery Responsive ===== */
+@media only screen and (max-width: 991px) {
+	.g_item img{ height: 250px; }
+	.g_lb-prev{ left: 10px; }
+	.g_lb-next{ right: 10px; }
+}
+@media only screen and (max-width: 767px) {
+	.g_item img{ height: 220px; }
+	.g_item figcaption h4{ font-size: 16px; }
+	.g_lb-close{ top: 14px; right: 14px; }
+	.g_lb-close,
+	.g_lb-nav{ width: 42px; height: 42px; font-size: 17px; }
+	.g_lightbox{ padding: 14px; }
+	.g_lb-inner p{ font-size: 15px; }
+}

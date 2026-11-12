@@ -16,7 +16,7 @@ const ContactPage = () => {
 					kicker="Contact"
 					title="Come and train with us"
 					lede="Call the dojo, send a message, or simply turn up for a free trial class. We are on Maruthi Nagar in Yelahanka, seven days a week."
-					background="assets/img/banner/contact.jpg"
+					background="assets/img/banner/contact.jpg?v=20261112i"
 					crumbs={[{ label: "Contact" }]}
 				/>
 

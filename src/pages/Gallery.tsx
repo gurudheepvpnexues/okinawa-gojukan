@@ -15,7 +15,7 @@ const GalleryPage = () => {
 					kicker="Archive"
 					title="Twenty-three years of dojo photographs"
 					lede="Training sessions, grading days and championship weekends, photographed at the Yelahanka hall and at tournaments across the country."
-					background="assets/img/banner/gallery.jpg"
+					background="assets/img/banner/gallery.jpg?v=20261112d"
 					crumbs={[{ label: "Gallery" }]}
 				/>
 

@@ -136,5 +136,36 @@ for (const [name, Page] of pages) {
   );
 }
 
+// 3. Every page must also render in Tamil, Hindi and Kannada.
+const { setLang, prepareLang } = await import("../src/i18n/core");
+
+const scripts: [string, "ta" | "hi" | "kn", RegExp][] = [
+	["Tamil", "ta", /[\u0B80-\u0BFF]/],
+	["Hindi", "hi", /[\u0900-\u097F]/],
+	["Kannada", "kn", /[\u0C80-\u0CFF]/],
+];
+
+for (const [label, code, script] of scripts) {
+	await prepareLang(code);
+	setLang(code);
+	for (const [name, Page] of pages) {
+		report(`${name} (${label})`, () => {
+			const html = renderToString(
+				createElement(
+					MemoryRouter,
+					{ initialEntries: ["/"] },
+					createElement(Page)
+				)
+			);
+			if (!script.test(html)) {
+				throw new Error(`no ${label} text found in the rendered page`);
+			}
+			return html.length;
+		});
+	}
+}
+
+setLang("en");
+
 console.log(failures === 0 ? "\nALL PAGES RENDERED" : `\n${failures} FAILURE(S)`);
 process.exit(failures === 0 ? 0 : 1);

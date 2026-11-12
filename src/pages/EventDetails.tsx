@@ -14,7 +14,7 @@ const EventDetailsPage = () => {
 					kicker="Event detail"
 					title="Spirit of the Dojo — Karate Championship"
 					lede="Our flagship annual event: kata and kumite divisions for every belt, judged by visiting examiners from across the country."
-					background="assets/img/banner/event-details.jpg"
+					background="assets/img/banner/event-details.jpg?v=20261112d"
 					crumbs={[{ label: "Events" }, { label: "Detail" }]}
 				/>
 				<EventDetails />

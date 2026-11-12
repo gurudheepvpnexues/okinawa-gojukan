@@ -13,7 +13,8 @@ export type Article = {
 	avatar: string;
 	category: string;
 	hero: { img: string; alt: string; caption: string };
-	body: ReactNode;
+	/** the article body, built at render time so it follows the language */
+	body: () => ReactNode;
 };
 
 export const articles: Record<string, Article> = {
@@ -33,7 +34,7 @@ export const articles: Record<string, Article> = {
 			alt: "Karate students training conditioning drills in the dojo",
 			caption: "Strength work before every technique session",
 		},
-		body: (
+		body: () => (
 			<>
 				<p>
 					Karate teaches far more than kicks and punches. A strong body is only
@@ -84,7 +85,7 @@ export const articles: Record<string, Article> = {
 			alt: "Two medalists holding the Indian flag after the XVI WKC World Championship",
 			caption: "Double gold in front of the national flag — XVI WKC, Bengaluru",
 		},
-		body: (
+		body: () => (
 			<>
 				<p>
 					A world championship is decided over one weekend and won over the
@@ -224,7 +225,7 @@ export const articles: Record<string, Article> = {
 			caption:
 				"With Grand Master Hanshi Dr. Tetsuhiro Hokama after the award, Okinawa",
 		},
-		body: (
+		body: () => (
 			<>
 				<p>
 					I am deeply humbled and proud to share a major milestone in my martial
@@ -339,7 +340,7 @@ export const articles: Record<string, Article> = {
 			alt: "Two kobudo medalists holding bo staffs and certificates at the championship",
 			caption: "Kobudo on the world stage — bo staff medals and certificates",
 		},
-		body: (
+		body: () => (
 			<>
 				<p>
 					Kobudo is the quiet half of our syllabus: the bo staff, the sai, the

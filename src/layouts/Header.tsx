@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import MobileOffcanvas from "../layouts/MobileOffcanvas";
+import { LanguageMenu } from "../i18n";
 
 const navItems = [
   { label: "Home", to: "/" },
@@ -130,6 +131,9 @@ const Header = () => {
                   ))}
                 </ul>
               </li>
+
+              {/* Language picker — right of the "More" menu */}
+              <LanguageMenu />
             </ul>
           </nav>
 

@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { dojo } from "../sections/data";
+import { LanguageMenu } from "../i18n";
 
 const navItems = [
   { label: "Home", to: "/" },
@@ -130,6 +131,8 @@ const MobileOffcanvas = ({ isOpen, toggleOffcanvas }: MobileOffcanvasProps) => {
                       ))}
                     </ul>
                   </li>
+
+                  <LanguageMenu />
                 </ul>
               </div>
 

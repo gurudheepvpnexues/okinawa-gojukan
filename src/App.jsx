@@ -4,6 +4,7 @@ import Preloader from "./layouts/Preloader";
 import ScrollManager from "./layouts/ScrollManager";
 import PageMeta from "./layouts/PageMeta";
 import BackToTop from "./layouts/BackToTop";
+import { LanguageProvider, useLang } from "./i18n";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
@@ -52,13 +53,21 @@ const router = createBrowserRouter([
   },
 ]);
 
+// The router is rebuilt whenever the language changes, so every page is
+// rendered again with the new wording.
+const RoutedApp = () => {
+  const { activeLang } = useLang();
+  if (!activeLang) return null;
+  return <RouterProvider router={router} key={activeLang} />;
+};
+
 const App = () => {
   return (
-    <>
+    <LanguageProvider>
       <Preloader />
-      <RouterProvider router={router} />
+      <RoutedApp />
       <BackToTop />
-    </>
+    </LanguageProvider>
   );
 };
 

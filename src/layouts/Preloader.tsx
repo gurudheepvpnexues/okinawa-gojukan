@@ -1,13 +1,18 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { dojo } from "../sections/data";
+import { useLang } from "../i18n";
 
 const Preloader = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<number | null>(null);
+  const { ready } = useLang();
 
   useEffect(() => {
+    /* Hold the screen until the word list for the chosen language is in. */
+    if (!ready) return;
+
     let dismiss: ReturnType<typeof setTimeout> | undefined;
     let cap: ReturnType<typeof setTimeout> | undefined;
     const root = document.documentElement;
@@ -55,7 +60,7 @@ const Preloader = () => {
       stopTicking();
       root.classList.remove("is-loading");
     };
-  }, []);
+  }, [ready]);
 
   return (
     <AnimatePresence>

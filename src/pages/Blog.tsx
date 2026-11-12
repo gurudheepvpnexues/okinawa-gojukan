@@ -16,7 +16,7 @@ const BlogPage = () => {
 					kicker="Journal"
 					title="Notes from the mat"
 					lede="Technique write-ups, grading advice and the occasional opinion about shoes. Written by the instructors and the students who train here."
-					background="assets/img/banner/blog.jpg"
+					background="assets/img/banner/blog.jpg?v=20261112d"
 					crumbs={[{ label: "Journal" }]}
 				/>
 

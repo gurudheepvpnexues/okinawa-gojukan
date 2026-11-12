@@ -15,7 +15,7 @@ import {
 	useSpring,
 	useTransform,
 } from "framer-motion";
-import { MasterFigure, Particle } from "./threeD";
+import { HeroReel, Particle } from "./threeD";
 
 /* ------------------------------------------------------------------ COPY */
 
@@ -32,7 +32,9 @@ const TITLE_LINES: { t: string; red: boolean }[][] = [
 	],
 ];
 
-const LEDE = (
+/* Built inside the component so the copy is picked up in the active
+   language every time the page is rendered. */
+const lede = () => (
 	<>
 		Our Chief Instructor,{" "}
 		<em>Hanshi Dr. S. C. Durai, 10th Dan</em>, was awarded the{" "}
@@ -230,7 +232,7 @@ const Hero3D = () => {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
 					>
-						{LEDE}
+						{lede()}
 					</motion.p>
 
 					<motion.div
@@ -286,7 +288,7 @@ const Hero3D = () => {
 								style={{ x: fighterX, y: fighterY }}
 								transition={{ duration: 2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
 							>
-								<MasterFigure />
+								<HeroReel />
 							</motion.div>
 						</motion.div>
 					</motion.div>
