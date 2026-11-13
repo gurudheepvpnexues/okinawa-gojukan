@@ -13,6 +13,7 @@ import {
 	Timetable,
 	Values,
 	Voices,
+	EnquirySection,
 } from "../sections/Blocks";
 import {
 	eventFeature,
@@ -258,6 +259,7 @@ const Home = () => {
 					</div>
 				</section>
 
+				<EnquirySection paper={true} title="Ask us" lede="Call the dojo, tell us the age of the student, and we will keep a mat ready for a free trial class." />
 				<Closing
 					kicker="Start here"
 					title="Your first class is free, and it is all you need to try."

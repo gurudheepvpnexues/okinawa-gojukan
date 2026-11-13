@@ -9,38 +9,6 @@
 import { memo, useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
-/* ----------------------------------------------------------------- MASTER */
-
-/**
- * The chief instructor of the dojo receiving his instructor certificate
- * from the IKO grand master in Okinawa. Shipped as a real photograph and
- * pushed into the red / black / white palette so it sits inside the hero stage.
- */
-export const MasterFigure = memo(
-	({ className = "" }: { className?: string }) => (
-		<figure className={`h3d__master ${className}`}>
-			<div className="h3d__master-frame">
-				<picture>
-					<img
-						className="h3d__master-img"
-						src="assets/img/banner/master.jpeg"
-						alt="The chief instructor of Okinawa Gojukan Karate-Do receiving his instructor certificate from the IKO grand master in Okinawa"
-						width={1200}
-						height={1600}
-						loading="eager"
-						decoding="async"
-					/>
-				</picture>
-				<span className="h3d__master-grade" aria-hidden="true" />
-				<span className="h3d__master-vignette" aria-hidden="true" />
-				<span className="h3d__master-sweep" aria-hidden="true" />
-			</div>
-		</figure>
-	)
-);
-
-MasterFigure.displayName = "MasterFigure";
-
 /* -------------------------------------------------------------- HERO REEL */
 
 /**
@@ -70,27 +38,6 @@ export const HERO_REEL: ReelItem[] = [
 		alt: "Gojukan Karate-Do wall artwork inside the Yelahanka dojo",
 		w: 1086,
 		h: 1448,
-		position: "50% 45%",
-	},
-	{
-		src: "assets/img/New images/image 15.jpeg",
-		alt: "A medalist with the national flag at the World Karate Championship",
-		w: 1200,
-		h: 1600,
-		position: "50% 40%",
-	},
-	{
-		src: "assets/img/New images/image 83.jpeg",
-		alt: "A young gold medalist with her diploma and coach in front of the national flag",
-		w: 3024,
-		h: 4032,
-		position: "50% 35%",
-	},
-	{
-		src: "assets/img/New images/image 12.jpeg",
-		alt: "Dojo representatives with the championship officials",
-		w: 1200,
-		h: 1600,
 		position: "50% 45%",
 	},
 ];

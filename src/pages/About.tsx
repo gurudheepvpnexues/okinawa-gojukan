@@ -2,7 +2,7 @@ import { memo } from "react";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Band, Closing, Masthead, SecHead, Split } from "../sections/Primitives";
-import { BranchMap, Branches, Facts, International, Timeline, Values, Voices } from "../sections/Blocks";
+import { BranchMap, Branches, Facts, International, Timeline, Values, Voices, EnquirySection } from "../sections/Blocks";
 import { aboutStory, aboutVoices } from "../sections/data";
 
 const AboutPage = () => {
@@ -133,6 +133,7 @@ const AboutPage = () => {
 					</div>
 				</section>
 
+				<EnquirySection paper={true} title="Ask us" lede="Okinawa Gojukan Karate-Do has taught karate-do in Yelahanka since 2003. Get in touch and we'll save a mat for you." />
 				<Closing
 					kicker="Come and see"
 					title="The best way to judge a dojo is to stand on its mat."

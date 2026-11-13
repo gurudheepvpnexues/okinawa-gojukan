@@ -61,7 +61,7 @@ const PrivacyPolicy = () => {
 						{
 							heading: "Your rights",
 							body: [
-								`You can ask us at any time to show, correct or delete the information we hold about you. Write to us at ${dojo.email2} and we will respond as quickly as possible.`,
+								`You can ask us at any time to show, correct or delete the information we hold about you. Write to us at ${dojo.email} and we will respond as quickly as possible.`,
 							],
 						},
 						{

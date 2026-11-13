@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Closing, Masthead, SecHead } from "../sections/Primitives";
-import { Posts } from "../sections/Blocks";
+import { Posts, EnquirySection } from "../sections/Blocks";
 
 const BlogPage = () => {
 	return (
@@ -43,7 +43,7 @@ const BlogPage = () => {
 					<div className="container">
 						<div className="feature">
 							<Link
-								to="/blog-details?post=tenth-dan-red-belt"
+								to="/blog-details/tenth-dan-red-belt"
 								className="feature__figure"
 							>
 								<img
@@ -78,7 +78,7 @@ const BlogPage = () => {
 										<span>So awarded</span>
 									</div>
 								</div>
-								<Link to="/blog-details?post=tenth-dan-red-belt" className="arrow-link">
+								<Link to="/blog-details/tenth-dan-red-belt" className="arrow-link">
 									Read the announcement <i className="ph ph-arrow-right"></i>
 								</Link>
 							</div>
@@ -100,6 +100,7 @@ const BlogPage = () => {
 
 				<Posts />
 
+				<EnquirySection paper={false} title="Ask us" lede="Nine pieces, in reverse order of publication. The archive grows every month." />
 				<Closing
 					kicker="Keep reading"
 					title="Practice is the only article that actually teaches."

@@ -1,14 +1,15 @@
 import { memo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import BlogDetails from "../components/BlogDetails";
 import { Closing, Masthead } from "../sections/Primitives";
+import { EnquirySection } from "../sections/Blocks";
 import { articles } from "../sections/articles";
 
 const BlogDetailsPage = () => {
-	const [params] = useSearchParams();
-	const article = articles[params.get("post") ?? ""] ?? articles.discipline;
+	const { post } = useParams();
+	const article = articles[post ?? ""] ?? articles.discipline;
 
 	return (
 		<>
@@ -23,6 +24,7 @@ const BlogDetailsPage = () => {
 					crumbs={[{ label: "Journal" }, { label: article.category }]}
 				/>
 				<BlogDetails />
+				<EnquirySection paper={false} title="Ask us" lede="Reading about it is not the same as doing it." />
 				<Closing
 					kicker="Read, then train"
 					title="Reading about it is not the same as doing it."

@@ -3,6 +3,7 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import EventDetails from "../components/EventDetails";
 import { Closing, Masthead } from "../sections/Primitives";
+import { EnquirySection } from "../sections/Blocks";
 
 const EventDetailsPage = () => {
 	return (
@@ -18,6 +19,7 @@ const EventDetailsPage = () => {
 					crumbs={[{ label: "Events" }, { label: "Detail" }]}
 				/>
 				<EventDetails />
+				<EnquirySection paper={true} title="Ask us" lede="Ask the dojo for the entry form, or simply write with the student's name and belt level and we will send it over." />
 				<Closing
 					kicker="Register"
 					title="Entries close two weeks before the day."

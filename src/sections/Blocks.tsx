@@ -23,6 +23,7 @@ import {
 	eventLedger,
 	eventSessions,
 	galleryItems,
+	type GalleryItem,
 	homeInstructors,
 	homeJournal,
 	homeMarquee,
@@ -414,7 +415,6 @@ export const Globe = memo(() => {
 });
 
 Globe.displayName = "Globe";
-Globe.displayName = "Globe";
 
 /* ------------------------------------------------------- BRANCH ADDRESSES */
 
@@ -800,6 +800,22 @@ export const PhotoStrip = memo(
 		const resumeAtRef = useRef(0);
 		const holdRef = useRef(false);
 
+		/* how many times the list repeats inside one half of the track, so a
+		   short list still fills the viewport (otherwise the strip stalls) */
+		const [repeats, setRepeats] = useState(1);
+		useEffect(() => {
+			const compute = () => {
+				const vw = window.innerWidth;
+				// mirrors .photo-strip__img in design.css: clamp(220px, 26vw, 340px) * 1.4 + 16px gap
+				const imgW = Math.min(340, Math.max(220, vw * 0.26)) * 1.4 + 16;
+				const perHalf = Math.ceil((vw * 1.2) / imgW);
+				setRepeats(Math.max(1, Math.ceil(perHalf / Math.max(1, items.length))));
+			};
+			compute();
+			window.addEventListener("resize", compute);
+			return () => window.removeEventListener("resize", compute);
+		}, [items.length]);
+
 		/* auto-scroll in `direction`; arrow nudges animate through the same loop */
 		useEffect(() => {
 			const el = marqueeRef.current;
@@ -869,6 +885,11 @@ export const PhotoStrip = memo(
 			pendingRef.current += dir * step;
 		};
 
+		/* one half of the track repeated `repeats` times, then duplicated, so
+		   the marquee always stays wider than the viewport */
+		const loop: (typeof items)[number][] = [];
+		for (let i = 0; i < repeats * 2; i++) loop.push(...items);
+
 		return (
 			<section
 				className="sec sec--tight photo-strip"
@@ -895,7 +916,7 @@ export const PhotoStrip = memo(
 				<div className="photo-strip__frame">
 					<div className="photo-strip__marquee" ref={marqueeRef}>
 						<div className="photo-strip__track">
-							{[...items, ...items].map((photo, index) => (
+							{loop.map((photo, index) => (
 								<img
 									className="photo-strip__img"
 									key={`${photo.src}-${index}`}
@@ -1162,7 +1183,7 @@ Posts.displayName = "Posts";
 
 /* ---------------------------------------------------------------- MOSAIC */
 
-export const Mosaic = memo(() => {
+export const Mosaic = memo(({ items = galleryItems }: { items?: GalleryItem[] }) => {
 	const [active, setActive] = useState<number | null>(null);
 	const closeRef = useRef<HTMLButtonElement | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -1173,10 +1194,10 @@ export const Mosaic = memo(() => {
 			if (e.key === "Escape") setActive(null);
 			if (e.key === "ArrowLeft")
 				setActive((i) =>
-					i === null ? i : (i - 1 + galleryItems.length) % galleryItems.length
+					i === null ? i : (i - 1 + items.length) % items.length
 				);
 			if (e.key === "ArrowRight")
-				setActive((i) => (i === null ? i : (i + 1) % galleryItems.length));
+				setActive((i) => (i === null ? i : (i + 1) % items.length));
 		};
 		window.addEventListener("keydown", onKey);
 		document.body.style.overflow = "hidden";
@@ -1186,7 +1207,7 @@ export const Mosaic = memo(() => {
 			document.body.style.overflow = "";
 			triggerRef.current?.focus();
 		};
-	}, [active]);
+	}, [active, items.length]);
 
 	const open = (index: number, trigger: HTMLElement) => {
 		triggerRef.current = trigger;
@@ -1196,7 +1217,7 @@ export const Mosaic = memo(() => {
 	return (
 		<>
 			<div className="mosaic">
-				{galleryItems.map((item, index) => (
+				{items.map((item, index) => (
 					<motion.figure
 						key={item.img}
 						initial={{ opacity: 0, scale: 0.96 }}
@@ -1230,7 +1251,7 @@ export const Mosaic = memo(() => {
 					onClick={() => setActive(null)}
 					role="dialog"
 					aria-modal="true"
-					aria-label={galleryItems[active].caption}
+					aria-label={items[active].caption}
 				>
 					<button
 						type="button"
@@ -1247,7 +1268,7 @@ export const Mosaic = memo(() => {
 						onClick={(e) => {
 							e.stopPropagation();
 							setActive(
-								(active - 1 + galleryItems.length) % galleryItems.length
+								(active - 1 + items.length) % items.length
 							);
 						}}
 						aria-label="Previous photo"
@@ -1259,7 +1280,7 @@ export const Mosaic = memo(() => {
 						className="lb__btn lb__next"
 						onClick={(e) => {
 							e.stopPropagation();
-							setActive((active + 1) % galleryItems.length);
+							setActive((active + 1) % items.length);
 						}}
 						aria-label="Next photo"
 					>
@@ -1268,10 +1289,10 @@ export const Mosaic = memo(() => {
 
 					<div className="lb__frame" onClick={(e) => e.stopPropagation()}>
 						<img
-							src={galleryItems[active].img}
-							alt={galleryItems[active].caption}
+							src={items[active].img}
+							alt={items[active].caption}
 						/>
-						<p className="lb__cap">{galleryItems[active].caption}</p>
+						<p className="lb__cap">{items[active].caption}</p>
 					</div>
 				</div>
 			)}
@@ -1480,3 +1501,18 @@ export const Inquiry = memo(() => {
 });
 
 Inquiry.displayName = "Inquiry";
+
+/* --------------------------------------------------------------- ENQUIRY SECTION */
+
+export const EnquirySection = memo(
+	({ paper, title, lede }: { paper?: boolean; title?: string; lede?: string }) => (
+		<section className={`sec${paper ? " sec--paper2" : ""}`}>
+			<div className="container">
+				<SecHead kicker="Ask us" title={title} lede={lede} />
+				<Inquiry />
+			</div>
+		</section>
+	)
+);
+
+EnquirySection.displayName = "EnquirySection";

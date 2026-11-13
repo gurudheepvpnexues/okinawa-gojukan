@@ -3,6 +3,7 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import ProgramDetails from "../components/ProgramDetails";
 import { Closing, Masthead } from "../sections/Primitives";
+import { EnquirySection } from "../sections/Blocks";
 
 const ProgramDetailsPage = () => {
 	return (
@@ -18,6 +19,7 @@ const ProgramDetailsPage = () => {
 					crumbs={[{ label: "Programs" }, { label: "Detail" }]}
 				/>
 				<ProgramDetails />
+				<EnquirySection paper={true} title="Ask us" lede="Attend one full session before you pay anything. We will place you at the right stage of the pathway on the spot." />
 				<Closing
 					kicker="Start the pathway"
 					title="The first stage is free to try."

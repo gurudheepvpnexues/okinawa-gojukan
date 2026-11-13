@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Band, Closing, Ledger, Masthead, SecHead } from "../sections/Primitives";
-import { BeltLadder, Chapters, Plans, Timetable } from "../sections/Blocks";
+import { BeltLadder, Chapters, Plans, Timetable, EnquirySection } from "../sections/Blocks";
 import { programEnrol } from "../sections/data";
 
 const ProgramsPage = () => {
@@ -106,6 +106,7 @@ const ProgramsPage = () => {
 					</div>
 				</section>
 
+				<EnquirySection paper={true} title="Ask us" lede="Wear something you can move in and bring water. We will find you a class that fits the age and the level." />
 				<Closing
 					kicker="First step"
 					title="Come for one session and decide afterwards."

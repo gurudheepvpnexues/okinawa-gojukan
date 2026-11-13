@@ -402,10 +402,3 @@ export const articles: Record<string, Article> = {
 		),
 	},
 };
-
-export const articleList: Article[] = [
-	articles["tenth-dan-red-belt"],
-	articles["world-championship-2026"],
-	articles["kobudo-world-stage"],
-	articles.discipline,
-];

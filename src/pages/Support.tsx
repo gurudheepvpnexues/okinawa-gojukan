@@ -3,6 +3,7 @@ import Header from "../layouts/Header";
 import ContentPage from "../components/ContentPage";
 import Footer from "../layouts/Footer";
 import { Closing, Masthead } from "../sections/Primitives";
+import { EnquirySection } from "../sections/Blocks";
 import { dojo } from "../sections/data";
 
 const Support = () => {
@@ -82,11 +83,12 @@ const Support = () => {
 						{
 							heading: "Still need help?",
 							body: [
-								`Call us on ${dojo.phone} or ${dojo.phone2}, or write to ${dojo.email2} with your question and we will help you plan your first class.`,
+								`Call us on ${dojo.phone} or ${dojo.phone2}, or write to us via WhatsApp and we will help you plan your first class.`,
 							],
 						},
 					]}
 				/>
+				<EnquirySection paper={false} title="Ask us" lede="Ring the dojo between 6 AM and 8 PM. Somebody who teaches here will pick up." />
 				<Closing
 					kicker="Still unanswered"
 					title="Ask a person, not a form."

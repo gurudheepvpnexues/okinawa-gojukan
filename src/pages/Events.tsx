@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Closing, Masthead, SecHead, Split } from "../sections/Primitives";
-import { Chambers, EventLedger, SessionCards } from "../sections/Blocks";
+import { Chambers, EventLedger, SessionCards, EnquirySection } from "../sections/Blocks";
 import { eventFeature } from "../sections/data";
 
 const EventsPage = () => {
@@ -96,6 +96,7 @@ const EventsPage = () => {
 					</div>
 				</section>
 
+				<EnquirySection paper={true} title="Ask us" lede="Squad selection happens at the start of each season. If you think you are ready, ask your instructor." />
 				<Closing
 					kicker="Compete with us"
 					title="The squad travels to eight events a year."

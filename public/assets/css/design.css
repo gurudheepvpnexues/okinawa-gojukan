@@ -4227,3 +4227,44 @@ a[href^="tel:"],
 		grid-template-columns: 1fr;
 	}
 }
+
+/* -----------------------------------------------------------------------------------------
+   41. GALLERY VIDEO (copy left, player right — the top section of the gallery page)
+   ----------------------------------------------------------------------------------------- */
+.gallery-video {
+	display: grid;
+	grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+	gap: clamp(28px, 4.5vw, 78px);
+	align-items: center;
+}
+
+.gallery-video .sec-head {
+	margin-bottom: 0;
+}
+
+.gallery-video__media {
+	position: relative;
+	border: 1px solid var(--hair-soft);
+	background: var(--ink);
+}
+
+/* keep the red label off the native controls, which sit bottom-left */
+.gallery-video__media .split__tag {
+	bottom: auto;
+	top: 0;
+}
+
+.gallery-video__player {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	background: var(--ink);
+}
+
+@media only screen and (max-width: 991px) {
+	.gallery-video {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
